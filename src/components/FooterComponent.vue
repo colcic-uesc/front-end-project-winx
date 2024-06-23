@@ -1,5 +1,5 @@
 <template>
-    <footer class="footer h3">
+    <footer class="footer heading-quaternary">
         <div>
             <p>© 2024 - Todos os direitos reservados</p>
             <p>Desenvolvido por <a href="https://github.com/colcic-uesc/front-end-project-winx" target="_blank">Grupo das Winx</a></p>

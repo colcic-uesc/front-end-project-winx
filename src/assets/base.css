@@ -18,11 +18,17 @@
 
   --color-white: #fff;
   --color-green: #09B24D;
+
+
+  --font-size-body: 1rem;
+  --font-size-h1: clamp(2.5rem, 6vw, 2.5rem);
+  --font-size-h2: clamp(2rem, 5vw, 2rem);
+  --font-size-h3: clamp(1.25rem, 4vw, 1.25rem);
 }
 
 
 body {
-  font-size: 14px;
+  font-size: var(--font-size-body);
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
