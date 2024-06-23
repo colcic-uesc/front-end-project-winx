@@ -6,13 +6,35 @@ import SidebarComponent from './components/SidebarComponent.vue';
 </script>
 
 <template>
-  <HeaderComponent />
-  <SidebarComponent />
 
-  <RouterView />
-  <FooterComponent />
+  <div class="app-container">
+    <HeaderComponent />
+    <SidebarComponent />
+    <div class="main-content">
+
+      <RouterView />
+    </div>
+    <FooterComponent />
+  </div>
 </template>
 
 <style scoped>
-/* css global */
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .main-content {
+    display: flex;
+    flex: 1;
+  }
+
+  .main-content > * {
+    flex: 1;
+  }
+
+  RouterView {
+    flex: 1;
+  }
 </style>

@@ -1,8 +1,5 @@
 <template>
     <div class="home">
-      <HeaderComponent/>
-      <SidebarComponent/>
-  
       <main>
         <section class="welcome">
             <div class="content-wrapper">
@@ -32,30 +29,14 @@
           </div>
         </section>
       </main>
-  
-      <footer>
-        <p>© 2024 - Todos os direitos reservados</p>
-        <p>Desenvolvido por Grupo das Winx</p>
-      </footer>
     </div>
   </template>
   
   <script>
-import SidebarComponent from '../components/SidebarComponent.vue';
-import HeaderComponent from '../components/HeaderComponent.vue';  // Importar o LogoComponent correto
-import '../assets/base.css';
-import '../assets/uesc.png';
-  
-  export default {
-    components: {
-        HeaderComponent, SidebarComponent  // Registrar o LogoComponent
-    }
-  }
 
   </script>
   
   <style scoped>
-  
   .welcome, .roles {
     align-self: center;
     margin-top: 15px;
@@ -121,14 +102,5 @@ import '../assets/uesc.png';
     font-size: 18px;
     text-decoration: underline;
   }
-  
-  footer {
-    background: #f0f0f0;
-    padding: 20px;
-    text-align: center;
-    bottom: 0;
-  }
-
-  
   </style>
   

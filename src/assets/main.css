@@ -1,25 +1,31 @@
 @import './base.css';
 
-.text {
+.body-text {
   color: var(--color-text);
-  font-size: 14px;
+  font-size: var(--font-size-body);
   font-weight: 400;
 }
 
-.h1{
+.heading-primary{
   color: var(--color-text);
-  font-size: 40px;
+  font-size: var(--font-size-h1);
   font-weight: 700;
 }
 
-.h2{
+.heading-secondary{
   color: var(--color-text);
-  font-size: 32px;
+  font-size: var(--font-size-h2);
   font-weight: 700;
 }
 
-.h3{
+
+.heading-tertiary{
   color: var(--color-text);
-  font-size: 20px;
+  font-size: var(--font-size-h3);
+  font-weight: 600;
+}
+.heading-quaternary{
+  color: var(--color-text);
+  font-size: var(--font-size-body);
   font-weight: 600;
 }
