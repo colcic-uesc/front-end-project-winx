@@ -39,8 +39,8 @@
   <style scoped>
   .welcome, .roles {
     align-self: center;
-    margin-top: 15px;
-    padding: 20px;
+    
+    
     align-items: center;
     text-align: center;
   }
