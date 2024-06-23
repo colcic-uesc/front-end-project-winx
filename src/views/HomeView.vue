@@ -1,5 +1,6 @@
 <template>
     <div class="home">
+      <HeaderComponent/>
       <header>
         <h1>Connect CIC</h1>
       </header>
@@ -33,19 +34,14 @@
   </template>
   
   <script>
+  import HeaderComponent from '../components/HeaderComponent.vue';  // Importar o LogoComponent correto
+  
   export default {
-    methods: {
-      register() {
-        // Logic for registering
-      },
-      viewStudentJobs() {
-        // Logic for viewing student jobs
-      },
-      postJob() {
-        // Logic for posting a job
-      }
+    components: {
+        HeaderComponent  // Registrar o LogoComponent
     }
   }
+
   </script>
   
   <style scoped>
