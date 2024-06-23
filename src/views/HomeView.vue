@@ -1,13 +1,11 @@
 <template>
     <div class="home">
       <HeaderComponent/>
-      <header>
-        <h1>Connect CIC</h1>
-      </header>
+      <SidebarComponent/>
   
       <main>
         <section class="welcome">
-          <h2>Bem-vindo ao ConnectCic</h2>
+          <h2>Bem-vindo ao ConnectCic <font-awesome-icon icon="house" /></h2>
           <p>Conectando alunos e professores a oportunidades. O ConnectCic é uma plataforma que facilita a comunicação entre professores e alunos, oferecendo um espaço para a publicação e candidatura de vagas de estágio, pesquisa científica, bolsas para projetos e empregos.</p>
           <button @click="register">Não tem uma conta? Cadastre-se</button>
         </section>
@@ -15,6 +13,7 @@
         <section class="roles">
           <div class="student">
             <h3>Sou um aluno!</h3>
+            
             <p>Busco oportunidades.</p>
             <button @click="viewStudentJobs">Ver vagas</button>
           </div>
@@ -34,11 +33,13 @@
   </template>
   
   <script>
-  import HeaderComponent from '../components/HeaderComponent.vue';  // Importar o LogoComponent correto
+import SidebarComponent from '../components/SidebarComponent.vue';
+import HeaderComponent from '../components/HeaderComponent.vue';  // Importar o LogoComponent correto
+import '../assets/base.css';
   
   export default {
     components: {
-        HeaderComponent  // Registrar o LogoComponent
+        HeaderComponent, SidebarComponent  // Registrar o LogoComponent
     }
   }
 
