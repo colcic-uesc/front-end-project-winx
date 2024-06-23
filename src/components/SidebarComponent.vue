@@ -45,7 +45,7 @@
 
    <style scoped>
    .sidebar {
-     height: 180px;
+     height: 150px;
      width: 60px;
      display: flex;
      flex-direction: column;
@@ -69,12 +69,11 @@
      text-align: center;
      background: none;
      border: none;
-     font-size: 18px;
+     font-size: 20px;
      color: var(--color-secondary-hover); /* Melhora a visibilidade dos ícones */
      height: 40px;
      width: 50px;
-     padding-top: 30px;
-     margin: 0px 0; /* Espaçamento entre os botões */
+     margin: 5px; /* Espaçamento entre os botões */
    }
    
    </style>
