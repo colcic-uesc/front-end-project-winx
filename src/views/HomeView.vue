@@ -7,9 +7,12 @@
         <section class="welcome">
             <div class="content-wrapper">
                 <div class="text-content">
-                <h2 style="color: var(--color-primary); font-size: 18px;"s>Bem-vindo ao ConnectCic</h2>
+                <h2 style="color: var(--color-primary); font-size: 30px;"s>Bem-vindo ao ConnectCic</h2>
                 <p>Conectando alunos e professores a oportunidades. O ConnectCic é uma plataforma que facilita a comunicação entre professores e alunos, oferecendo um espaço para a publicação e candidatura de vagas de estágio, pesquisa científica, bolsas para projetos e empregos.</p>
-                <button @click="register">Não tem uma conta? Cadastre-se</button>
+                <h3 style="margin-top: 40px;font-size: 16px;">Não tem uma conta?
+                    <button @click="register">Cadastre-se</button>
+                </h3>
+                
                 </div>
                 <img src="../assets/uesc.png" alt="Descrição da Imagem">
             </div>
@@ -22,7 +25,7 @@
             <p>Busco oportunidades.</p>
             <button @click="viewStudentJobs">Ver vagas</button>
           </div>
-          <div class="teacher">
+          <div class="professor">
             <h3>Sou um professor!</h3>
             <p>Procuro colaboradores.</p>
             <button @click="postJob">Inserir vagas</button>
@@ -55,14 +58,14 @@ import '../assets/uesc.png';
   
   .welcome, .roles {
     align-self: center;
-    margin-top: 10px;
+    margin-top: 15px;
     padding: 20px;
     align-items: center;
     text-align: center;
   }
 
   .welcome .content-wrapper {
-    margin-left: 100px;
+    margin-left: 130px;
     margin-right: 100px;
     display: flex;
     align-items: center; /* Centraliza verticalmente o conteúdo */
@@ -74,6 +77,7 @@ import '../assets/uesc.png';
     flex: 1; /* Permite que o texto cresça e use espaço disponível */
     padding-right: 100px; /* Espaço entre o texto e a imagem */
     text-align: left;
+    line-height: 2.0em;
   }
 
   .welcome img {
@@ -81,20 +85,50 @@ import '../assets/uesc.png';
     max-width: 700px; /* Largura máxima da imagem */
     height: auto; /* Mantém a proporção da imagem */
   }
-  
-  .roles div {
+
+  .roles {
+    
+    width: 100%;
     height: 150px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .roles .student {
+    background-color: var(--color-secondary-hover);
     display: inline-block;
-    margin: 20px;
-    padding: 20px;
-    background: #f8f8f8;
-    border-radius: 10px;
+    border-radius: 0px 40px 40px 0px;
+    left: 0;
+    height: 150px;
+    width: 200px;
+    
+  }
+
+  .roles .professor {
+    background-color: var(--color-secondary-hover);
+    display: inline-block;
+    border-radius: 0px 40px 40px 0px;
+    right: 0;
+    height: 150px;
+    width: 200px;
+  }
+
+  .welcome button {
+    background-color: transparent;
+    border: none;
+    color: var(--color-primary-hover);
+    font-weight: bold;
+    font-size: 18px;
+    text-decoration: underline;
   }
   
   footer {
     background: #f0f0f0;
     padding: 20px;
     text-align: center;
+    bottom: 0;
   }
+
+  
   </style>
   
