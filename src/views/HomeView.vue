@@ -1,8 +1,5 @@
 <template>
     <div class="home">
-      <HeaderComponent/>
-      <SidebarComponent/>
-  
       <main>
         <section class="welcome">
           <h2>Bem-vindo ao ConnectCic <font-awesome-icon icon="house" /></h2>
@@ -24,34 +21,14 @@
           </div>
         </section>
       </main>
-  
-      <footer>
-        <p>© 2024 - Todos os direitos reservados</p>
-        <p>Desenvolvido por Grupo das Winx</p>
-      </footer>
     </div>
   </template>
   
   <script>
-import SidebarComponent from '../components/SidebarComponent.vue';
-import HeaderComponent from '../components/HeaderComponent.vue';  // Importar o LogoComponent correto
-import '../assets/base.css';
-  
-  export default {
-    components: {
-        HeaderComponent, SidebarComponent  // Registrar o LogoComponent
-    }
-  }
 
   </script>
   
   <style scoped>
-  .home header {
-    background: #f0f0f0;
-    padding: 20px;
-    text-align: center;
-  }
-  
   .welcome, .roles {
     padding: 20px;
     text-align: center;
@@ -63,12 +40,6 @@ import '../assets/base.css';
     padding: 20px;
     background: #f8f8f8;
     border-radius: 10px;
-  }
-  
-  footer {
-    background: #f0f0f0;
-    padding: 20px;
-    text-align: center;
   }
   </style>
   
