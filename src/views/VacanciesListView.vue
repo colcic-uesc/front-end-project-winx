@@ -36,7 +36,7 @@ import VacancyFilterComponent from '../components/VacancyFilterComponent.vue';
 }
 
 .content-wrapper h2 {
-  margin-left: 310px;
+  margin-left: 330px;
   color: var(--color-variant-background);
   font-weight: 300px; 
 }
@@ -64,7 +64,6 @@ import VacancyFilterComponent from '../components/VacancyFilterComponent.vue';
 .vacancy-list {
   max-height: 400px; /* Defina a altura máxima para a lista de vagas */
   overflow-y: auto; /* Permite scroll vertical se o conteúdo exceder a altura máxima */
-  border: 1px solid #ccc; /* Adiciona um contorno para melhor visualização */
   border-radius: 5px; /* Adiciona arredondamento nos cantos */
 }
 </style>
