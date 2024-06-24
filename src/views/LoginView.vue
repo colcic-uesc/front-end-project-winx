@@ -23,7 +23,7 @@
   
 <script setup>
   import { ref } from 'vue';
-  import InputComponent from '../components/InputComponent.vue'; // Certifique-se que o caminho está correto
+  import InputComponent from '../components/InputComponent.vue'; 
   
   const email = ref('');
   const password = ref('');
