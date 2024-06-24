@@ -8,7 +8,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: { name: 'home' }
+      redirect: { name: 'login' }
     },
     {
       path: '/inicio',
@@ -23,7 +23,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/LoginView.vue')
+      component: LoginView
     }
   ]
 })
