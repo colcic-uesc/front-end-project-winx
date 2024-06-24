@@ -48,34 +48,32 @@
   <style scoped>
   .welcome, .roles {
     align-self: center;
-    
-    
     align-items: center;
     text-align: center;
   }
 
   .welcome .content-wrapper {
-    margin-top: 50px;
-    margin-left: 130px;
-    margin-right: 100px;
+    margin-top: 60px;
+    margin-left: 150px;
+    margin-right: 110px;
     display: flex;
     align-items: center; /* Centraliza verticalmente o conteúdo */
     justify-content: space-between; /* Espaço entre o texto e a imagem */
     text-align: center;
   }
-
+  
   .roles .student .content-wrapper {
     display: flex;
-    margin-left: 110px;
+    margin-left: 120px;
   }
 
   .roles .professor .content-wrapper {
     display: flex;
-    margin-left: 80px;
+    margin-left: 65px;
   }
 
   .roles .professor img {
-    margin-right: 20px;
+    margin-right: 30px;
     margin-top: 20px;
     height: fit-content;
     align-self: center;
@@ -99,6 +97,26 @@
     height: 150px;
     display: flex;
     justify-content: space-between;
+    text-align: left;
+  }
+
+  .roles h3 {
+    color: var(--color-primary-hover);
+    font-weight: 750;
+  }
+
+  .roles p {
+    color: var(--color-primary-hover);
+    font-weight: 500;
+  }
+
+  .roles button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: var(--color-primary-hover);
+    text-underline-offset: 4px;
+    text-decoration: underline;
   }
 
   .roles .student {
@@ -108,7 +126,8 @@
     left: 0;
     height: 150px;
     width: 550px;
-    transform: translateY(50%); 
+    transform: translateY(30%); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   .roles .professor {
@@ -118,7 +137,8 @@
     right: 0;
     height: 150px;
     width: 550px;
-    transform: translateY(50%); 
+    transform: translateY(30%); 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   .welcome button {
