@@ -37,7 +37,7 @@
          this.$router.push('/profile');
        },
        goJobs() {
-         this.$router.push('/jobs');
+         this.$router.push('/lista-vagas');
        }
      }
    }
