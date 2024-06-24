@@ -9,19 +9,19 @@
         <section class="welcome">
           <h2>Bem-vindo ao ConnectCic</h2>
           <p>Conectando alunos e professores a oportunidades. O ConnectCic é uma plataforma que facilita a comunicação entre professores e alunos, oferecendo um espaço para a publicação e candidatura de vagas de estágio, pesquisa científica, bolsas para projetos e empregos.</p>
-          <button @click="register">Não tem uma conta? Cadastre-se</button>
+          <ButtonComponent @click="register">Não tem uma conta? Cadastre-se</ButtonComponent>
         </section>
         
         <section class="roles">
           <div class="student">
             <h3>Sou um aluno!</h3>
             <p>Busco oportunidades.</p>
-            <button @click="viewStudentJobs">Ver vagas</button>
+            <ButtonComponent @click="viewStudentJobs">Ver vagas</ButtonComponent>
           </div>
           <div class="teacher">
             <h3>Sou um professor!</h3>
             <p>Procuro colaboradores.</p>
-            <button @click="postJob">Inserir vagas</button>
+            <ButtonComponent @click="postJob">Inserir vagas</ButtonComponent>
           </div>
         </section>
       </main>
@@ -35,11 +35,14 @@
   
   <script>
   import HeaderComponent from '../components/HeaderComponent.vue';  // Importar o LogoComponent correto
-  
+  import ButtonComponent from '@/components/ButtonComponent.vue';
+    
   export default {
     components: {
-        HeaderComponent  // Registrar o LogoComponent
-    }
+        HeaderComponent,  // Registrar o LogoComponent
+        ButtonComponent
+    },
+    
   }
 
   </script>
