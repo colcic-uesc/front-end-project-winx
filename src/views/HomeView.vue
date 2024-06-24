@@ -17,15 +17,24 @@
         
         <section class="roles">
           <div class="student">
-            <h3>Sou um aluno!</h3>
-            
-            <p>Busco oportunidades.</p>
-            <button @click="viewStudentJobs">Ver vagas</button>
+            <div class = "content-wrapper">
+                <img src="../assets/searchIcon.png" alt="Descrição da Imagem">
+              <div class="text-content">
+                <h3>Sou um aluno!</h3>
+                <p>Busco oportunidades.</p>
+                <button @click="viewStudentJobs">Ver vagas</button>
+              </div>
+            </div>
           </div>
           <div class="professor">
-            <h3>Sou um professor!</h3>
-            <p>Procuro colaboradores.</p>
-            <button @click="postJob">Inserir vagas</button>
+            <div class = "content-wrapper">
+              <img src="../assets/studentIcon.png" alt="Descrição da Imagem">
+              <div class="text-content">
+                <h3>Sou um professor!</h3>
+                <p>Procuro colaboradores.</p>
+                <button @click="viewStudentJobs">Inserir vagas</button>
+              </div>
+            </div>
           </div>
         </section>
       </main>
@@ -46,6 +55,7 @@
   }
 
   .welcome .content-wrapper {
+    margin-top: 50px;
     margin-left: 130px;
     margin-right: 100px;
     display: flex;
@@ -53,6 +63,24 @@
     justify-content: space-between; /* Espaço entre o texto e a imagem */
     text-align: center;
   }
+
+  .roles .student .content-wrapper {
+    display: flex;
+    margin-left: 110px;
+  }
+
+  .roles .professor .content-wrapper {
+    display: flex;
+    margin-left: 80px;
+  }
+
+  .roles .professor img {
+    margin-right: 20px;
+    margin-top: 20px;
+    height: fit-content;
+    align-self: center;
+  }
+  
 
   .welcome .text-content {
     flex: 1; /* Permite que o texto cresça e use espaço disponível */
@@ -68,30 +96,29 @@
   }
 
   .roles {
-    
-    width: 100%;
     height: 150px;
     display: flex;
     justify-content: space-between;
   }
 
   .roles .student {
-    background-color: var(--color-secondary-hover);
+    background-color: var(--color-secondary);
     display: inline-block;
     border-radius: 0px 40px 40px 0px;
     left: 0;
     height: 150px;
-    width: 200px;
-    
+    width: 550px;
+    transform: translateY(50%); 
   }
 
   .roles .professor {
-    background-color: var(--color-secondary-hover);
+    background-color: var(--color-secondary);
     display: inline-block;
-    border-radius: 0px 40px 40px 0px;
+    border-radius: 40px 0px 0px 40px;
     right: 0;
     height: 150px;
-    width: 200px;
+    width: 550px;
+    transform: translateY(50%); 
   }
 
   .welcome button {
