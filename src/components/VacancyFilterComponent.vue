@@ -30,10 +30,6 @@ import CheckBox from '@/components/CheckBoxComponent.vue';
     <div class="filter-container">
         <CheckBox v-for="option in optionsList"  :name="option.name" :value="option.value" :label="option.label" @custom-checked="updateValue"/>
     </div>
-    <div class="categories-container">
-        Categorias
-
-    </div>
     
 </template>
 

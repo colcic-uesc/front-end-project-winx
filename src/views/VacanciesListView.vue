@@ -1,6 +1,7 @@
 <script setup>
-import VacancyFilter from '@/components/VacancyFilterComponent.vue';
-import VacancyItem from '@/components/VacancyItemComponent.vue';
+    import VacancyFilter from '@/components/VacancyFilterComponent.vue';
+    import VacancyItem from '@/components/VacancyItemComponent.vue';
+    import VacancyCategory from '../components/VancancyCategoriesComponent.vue';
 </script>
 
 <template>
@@ -12,6 +13,7 @@ import VacancyItem from '@/components/VacancyItemComponent.vue';
             <div class="vacancies">
                 <div class="vacancy-filter-container">
                     <VacancyFilter />
+                    <VacancyCategory />
                 </div>
                 <div class=vacancy-listr-container>
                     <VacancyItem />
