@@ -34,6 +34,10 @@ import CheckBox from '@/components/CheckBoxComponent.vue';
 </template>
 
 <style scoped>
-
+    .filter-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
 
 </style>

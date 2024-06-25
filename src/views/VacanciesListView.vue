@@ -33,7 +33,7 @@
 .content-wrapper {
   margin-left: 200px;
   margin-right: 200px;
-  margin-top: 100px;
+  margin-top: 80px;
   justify-content: center;
 }
 
@@ -47,6 +47,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin: 40px 0;
   
 }
 
@@ -57,7 +58,10 @@
   border-radius: 0px 30px 30px 0px;
   border-color: var(--color-primary-hover);
   border-right: 3px solid var(--color-secondary-hover);
-  padding: 20px;
+  padding: 50px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .vacancy-list {

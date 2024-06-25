@@ -30,7 +30,7 @@
 
 <template>
     <div class="category-filter-container">
-        <div>
+        <div class="heading-tertiary category-title">
             Categorias
         </div>
         <div class="category-filter">
@@ -39,3 +39,16 @@
         </div>
     </div>
 </template>
+
+<style scoped>
+    .category-title{
+        margin-bottom: 16px;
+    }
+
+    .category-filter {
+        margin-left: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+</style>
