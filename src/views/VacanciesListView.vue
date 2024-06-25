@@ -1,6 +1,7 @@
 <script setup>
-import VacancyItemComponent from '../components/VacancyItemComponent.vue';
-import VacancyFilterComponent from '../components/VacancyFilterComponent.vue';
+    import VacancyFilter from '@/components/VacancyFilterComponent.vue';
+    import VacancyItem from '@/components/VacancyItemComponent.vue';
+    import VacancyCategory from '../components/VancancyCategoriesComponent.vue';
 </script>
 
 <template>
@@ -9,17 +10,18 @@ import VacancyFilterComponent from '../components/VacancyFilterComponent.vue';
         <h2>Vagas Disponíveis</h2>
         <div class="vacancies">
           <div class="vacancy-filter-container">
-            <VacancyFilterComponent />
+            <VacancyFilter />
+            <VacancyCategory />
           </div>
           <div class="vacancy-list-container">
             <div class="vacancy-list">
-              <VacancyItemComponent />
-              <VacancyItemComponent />
-              <VacancyItemComponent />
-              <VacancyItemComponent />
-              <VacancyItemComponent />
-              <VacancyItemComponent />
-              <VacancyItemComponent />
+              <VacancyItem />
+              <VacancyItem />
+              <VacancyItem />
+              <VacancyItem />
+              <VacancyItem />
+              <VacancyItem />
+              <VacancyItem />
             </div>
           </div>
         </div>
@@ -48,10 +50,6 @@ import VacancyFilterComponent from '../components/VacancyFilterComponent.vue';
   
 }
 
-.vacancy-list-container {
-  
-}
-
 .vacancy-filter-container {
   background-color: white;
   width: 300px;
@@ -59,6 +57,7 @@ import VacancyFilterComponent from '../components/VacancyFilterComponent.vue';
   border-radius: 0px 30px 30px 0px;
   border-color: var(--color-primary-hover);
   border-right: 3px solid var(--color-secondary-hover);
+  padding: 20px;
 }
 
 .vacancy-list {

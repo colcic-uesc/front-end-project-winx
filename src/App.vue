@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import HeaderComponent from './components/HeaderComponent.vue';
 import FooterComponent from './components/FooterComponent.vue';
 import SidebarComponent from './components/SidebarComponent.vue';
+
 </script>
 
 <template>
@@ -15,6 +16,11 @@ import SidebarComponent from './components/SidebarComponent.vue';
       <RouterView />
     </div>
     <FooterComponent />
+    <div>
+      <InputComponent v-model="inputValue" type="text" class="input-component" />
+
+      <p>{{ inputValue }}</p>
+    </div>
   </div>
 </template>
 
