@@ -16,11 +16,6 @@ import SidebarComponent from './components/SidebarComponent.vue';
       <RouterView />
     </div>
     <FooterComponent />
-    <div>
-      <InputComponent v-model="inputValue" type="text" class="input-component" />
-
-      <p>{{ inputValue }}</p>
-    </div>
   </div>
 </template>
 

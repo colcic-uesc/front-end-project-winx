@@ -2,6 +2,16 @@
     import VacancyFilter from '@/components/VacancyFilterComponent.vue';
     import VacancyItem from '@/components/VacancyItemComponent.vue';
     import VacancyCategory from '../components/VancancyCategoriesComponent.vue';
+
+    function onFilterChanged(filters) {
+        console.log(filters);
+    }
+
+    function onCategoriesChanged(categories) {
+        console.log(categories);
+    }
+
+
 </script>
 
 <template>
@@ -10,8 +20,8 @@
         <h2>Vagas Disponíveis</h2>
         <div class="vacancies">
           <div class="vacancy-filter-container">
-            <VacancyFilter />
-            <VacancyCategory />
+            <VacancyFilter @filter-changed="onFilterChanged" />
+            <VacancyCategory @categories-changed="onCategoriesChanged" />
           </div>
           <div class="vacancy-list-container">
             <div class="vacancy-list">
