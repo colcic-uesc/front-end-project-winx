@@ -5,13 +5,11 @@
         <form @submit.prevent="handleSubmit">
           <InputComponent
             v-model="email"
-            label="Email"
             type="email"
             placeholder="E-mail"
           />
           <InputComponent
             v-model="password"
-            label="Senha"
             type="password"
             placeholder="Senha"
           />
