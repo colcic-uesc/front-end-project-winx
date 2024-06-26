@@ -1,8 +1,111 @@
-<script setup>
+<script>
+    import { vacancyList } from '../environment/vacancyList.js'
+    export default {
+        data(){
+            return {
+                name: 'Everaldina Guimarães',
+                email: 'egbarbosa.cic@uesc.br',
+                vacancies: vacancyList,
+                mode: "student"
+            }
+        },
+        methods: {
+            toVancancies(){
+                this.$router.push('/vacancy-list')
+            }
+        },
+        mounted(){
+            console.log(this.vacancies)
+        }
+    }
 </script>
 
 <template>
+    <div class="profile-wrapper">
+        <div class="profile-header">
+            <img src="../assets/imgs/profile/profile0.jpg" alt="Profile Picture" class="profile-picture">
+            <div class="profile-info">
+                <p class="heading-secondary">Olá! {{ name }}</p>
+                <p>
+                    {{ email }}
+                    <RouterLink :to="{ name: 'profile-edit', params: { id: $route.params.id } }" class="edit-link"><font-awesome-icon icon="pen-to-square" style="color: var(--color-variant-background);" /></RouterLink>
+                </p>
+            </div>
+        </div>
+        <div class="profile-container">
+            <div class="profile-content">
+                <template v-if="vacancies.length == 0">
+                    <p>Você não está inscrito em nenhuma vaga!</p>
+                    <button :click="toVancancies">Ver vagas</button>
+                </template>
+                <template v-else>
+                    <div class="vacancies-container">
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style scoped>
+    .profile-container {
+        background-color: var(--color-white);
+        border: 5px solid var(--color-secondary-hover);
+        border-radius: 10px;
+        padding: 30px;
+        text-align: center;
+        position: relative;
+        height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .profile-wrapper {
+        margin: 150px auto 100px auto;
+        width: 80%;
+        max-width: 800px;
+        position: relative;
+    }
+
+    .profile-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        margin-bottom: 20px;
+        position: absolute;
+        top: -90px; /**/ 
+        left: 8%;
+        z-index: 1;
+    }
+
+    .profile-picture {
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        margin-right: 20px;
+        border: 3px solid var(--color-secondary-hover);
+    }
+
+    .profile-info{
+        text-align: left;
+        margin-top: 10px;
+    }
+    
+    .profile-info p {
+        color: var(--color-variant-background) !important;
+        margin: 5px 0 0 0;
+        word-wrap: break-word;
+    }
+
+    .edit-link {
+        margin-left: 10px;
+    }
+
+    .profile-content p {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 20px;
+    }
 </style>

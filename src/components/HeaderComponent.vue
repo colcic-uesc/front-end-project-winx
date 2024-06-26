@@ -1,8 +1,10 @@
 <template>
     <div class="logo-container">
-      <img src="@/assets/LogoIcon.svg" alt="Connect CIC Logo">
+      <RouterLink to="/home">
+        <img src="@/assets/LogoIcon.svg" alt="Connect CIC Logo">
+      </RouterLink>
     </div>
-  </template>
+</template>
   
   <script>
   export default {
