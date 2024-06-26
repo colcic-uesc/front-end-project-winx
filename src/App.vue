@@ -12,8 +12,9 @@ import SidebarComponent from './components/SidebarComponent.vue';
     <HeaderComponent />
     <SidebarComponent />
     <div class="main-content">
-
-      <RouterView />
+      <main>
+        <RouterView />
+      </main>
     </div>
     <FooterComponent />
   </div>

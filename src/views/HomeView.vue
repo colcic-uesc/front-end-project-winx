@@ -1,43 +1,41 @@
 <template>
     <div class="home">
-      <main>
-        <section class="welcome">
-            <div class="content-wrapper">
-                <div class="text-content">
-                <h2 style="color: var(--color-primary); font-size: 30px;"s>Bem-vindo ao ConnectCic</h2>
-                <p>Conectando alunos e professores a oportunidades. O ConnectCic é uma plataforma que facilita a comunicação entre professores e alunos, oferecendo um espaço para a publicação e candidatura de vagas de estágio, pesquisa científica, bolsas para projetos e empregos.</p>
-                <h3 style="margin-top: 40px;font-size: 16px;">Não tem uma conta?
-                    <button @click="register">Cadastre-se</button>
-                </h3>
-                
-                </div>
-                <img src="../assets/imgs/uesc.png" alt="Descrição da Imagem">
-            </div>
-        </section>
-        
-        <section class="roles">
-          <div class="student">
-            <div class = "content-wrapper">
-                <img src="../assets/icons/searchIcon.png" alt="Descrição da Imagem">
+      <section class="welcome">
+          <div class="content-wrapper">
               <div class="text-content">
-                <h3>Sou um aluno!</h3>
-                <p>Busco oportunidades.</p>
-                <button @click="viewStudentJobs">Ver vagas</button>
+              <h2 style="color: var(--color-primary); font-size: 30px;"s>Bem-vindo ao ConnectCic</h2>
+              <p>Conectando alunos e professores a oportunidades. O ConnectCic é uma plataforma que facilita a comunicação entre professores e alunos, oferecendo um espaço para a publicação e candidatura de vagas de estágio, pesquisa científica, bolsas para projetos e empregos.</p>
+              <h3 style="margin-top: 40px;font-size: 16px;">Não tem uma conta?
+                  <button @click="register">Cadastre-se</button>
+              </h3>
+              
               </div>
+              <img src="../assets/imgs/uesc.png" alt="Descrição da Imagem">
+          </div>
+      </section>
+      
+      <section class="roles">
+        <div class="student">
+          <div class = "content-wrapper">
+              <img src="../assets/icons/searchIcon.png" alt="Descrição da Imagem">
+            <div class="text-content">
+              <h3>Sou um aluno!</h3>
+              <p>Busco oportunidades.</p>
+              <button @click="viewStudentJobs">Ver vagas</button>
             </div>
           </div>
-          <div class="professor">
-            <div class = "content-wrapper">
-              <img src="../assets/icons/studentIcon.png" alt="Descrição da Imagem">
-              <div class="text-content">
-                <h3>Sou um professor!</h3>
-                <p>Procuro colaboradores.</p>
-                <button @click="viewStudentJobs">Inserir vagas</button>
-              </div>
+        </div>
+        <div class="professor">
+          <div class = "content-wrapper">
+            <img src="../assets/icons/studentIcon.png" alt="Descrição da Imagem">
+            <div class="text-content">
+              <h3>Sou um professor!</h3>
+              <p>Procuro colaboradores.</p>
+              <button @click="viewStudentJobs">Inserir vagas</button>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
     </div>
   </template>
   

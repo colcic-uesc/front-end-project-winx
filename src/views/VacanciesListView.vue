@@ -16,7 +16,6 @@
 
 <template>
     <div class="content-wrapper">
-      <main>
         <h2>Vagas Disponíveis</h2>
         <div class="vacancies">
           <div class="vacancy-filter-container">
@@ -35,7 +34,6 @@
             </div>
           </div>
         </div>
-      </main>
     </div>
   </template>
 
