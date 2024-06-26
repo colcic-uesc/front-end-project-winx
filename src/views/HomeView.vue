@@ -11,14 +11,14 @@
                 </h3>
                 
                 </div>
-                <img src="../assets/uesc.png" alt="Descrição da Imagem">
+                <img src="../assets/imgs/uesc.png" alt="Descrição da Imagem">
             </div>
         </section>
         
         <section class="roles">
           <div class="student">
             <div class = "content-wrapper">
-                <img src="../assets/searchIcon.png" alt="Descrição da Imagem">
+                <img src="../assets/icons/searchIcon.png" alt="Descrição da Imagem">
               <div class="text-content">
                 <h3>Sou um aluno!</h3>
                 <p>Busco oportunidades.</p>
@@ -28,7 +28,7 @@
           </div>
           <div class="professor">
             <div class = "content-wrapper">
-              <img src="../assets/studentIcon.png" alt="Descrição da Imagem">
+              <img src="../assets/icons/studentIcon.png" alt="Descrição da Imagem">
               <div class="text-content">
                 <h3>Sou um professor!</h3>
                 <p>Procuro colaboradores.</p>
