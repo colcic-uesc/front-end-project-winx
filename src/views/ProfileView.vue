@@ -1,17 +1,29 @@
 <script>
-    import { vacancyList } from '../environment/vacancyList.js'
+    import { icon } from '@fortawesome/fontawesome-svg-core';
+import { vacancyList } from '../environment/vacancyList.js'
+    import VacancyItem from '@/components/VacancyItemComponent.vue'
     export default {
         data(){
             return {
                 name: 'Everaldina Guimarães',
                 email: 'egbarbosa.cic@uesc.br',
                 vacancies: vacancyList,
-                mode: "student"
+                professorMode: false,
             }
+        },
+        components: {
+            VacancyItem
         },
         methods: {
             toVancancies(){
                 this.$router.push('/vacancy-list')
+            },
+            cancelVacancy(vacancyID){
+                if (confirm("Deseja mesmo se desinscrever da vaga?")) {
+                    console.log("Continuar");
+                } else {
+                    console.log("Cancelar");
+                }
             }
         },
         mounted(){
@@ -39,7 +51,20 @@
                     <button :click="toVancancies">Ver vagas</button>
                 </template>
                 <template v-else>
-                    <div class="vacancies-container">
+                    <div class="vacancy-list">
+                        <div class="vacancy-container" v-for="vacancy in vacancies" :key="vacancy.vacancyID">
+                            <div class="cancel-container">
+                                <font-awesome-icon 
+                                    class="fa-3x cancel-icon" 
+                                    :icon="['fas', 'rectangle-xmark']" 
+                                    :style = "{ color: 'var(--color-cancel)' }"
+                                    @click="cancelVacancy(vacancy.vacancyID)"
+                                />
+                            </div>
+                            <div class="vacancy-item">
+                                <VacancyItem/>
+                            </div>
+                        </div>
                     </div>
                 </template>
             </div>
@@ -52,7 +77,7 @@
         background-color: var(--color-white);
         border: 5px solid var(--color-secondary-hover);
         border-radius: 10px;
-        padding: 30px;
+        padding: 40px 50px;
         text-align: center;
         position: relative;
         height: 400px;
@@ -65,7 +90,7 @@
     .profile-wrapper {
         margin: 150px auto 100px auto;
         width: 80%;
-        max-width: 800px;
+        max-width: 900px;
         position: relative;
     }
 
@@ -108,4 +133,38 @@
         color: #333;
         margin-bottom: 20px;
     }
+
+    .vacancy-list {
+        max-height: 400px; /* Defina a altura máxima para a lista de vagas */
+        overflow-y: auto; /* Permite scroll vertical se o conteúdo exceder a altura máxima */
+        padding: 0 5px; /* Adiciona espaçamento interno */
+    }
+
+    .vacancy-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .cancel-container {
+        display: flex;
+        align-items: center;
+        flex: 1;
+        justify-content: center;
+    }
+
+    .vacancy-item{
+        flex: 7;
+    }
+
+    .cancel-icon {
+        cursor: pointer;
+    }
+
+    .cancel-icon:hover {
+        transform: scale(1.1);
+    }
+
+    
+
 </style>

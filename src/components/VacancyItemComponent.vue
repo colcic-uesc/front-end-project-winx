@@ -49,6 +49,7 @@
     margin-bottom: 10px;
     background-color: #f0f0f0;
     border-radius: 10px;
+    text-align: left;
   }
 
   .vacancy-text {
