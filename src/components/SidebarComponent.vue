@@ -31,13 +31,13 @@
          this.isCollapsed = !this.isCollapsed;
        },
        goHome() {
-         this.$router.push('/');
+         this.$router.push('/home');
        },
        goProfile() {
-         this.$router.push('/profile');
+         this.$router.push('/profile/1');
        },
        goJobs() {
-         this.$router.push('/lista-vagas');
+         this.$router.push('/vacancy-list');
        }
      }
    }

@@ -8,7 +8,7 @@ import { vacancyList } from '../environment/vacancyList.js'
                 name: 'Everaldina Guimarães',
                 email: 'egbarbosa.cic@uesc.br',
                 vacancies: vacancyList,
-                professorMode: false,
+                professorMode: true,
             }
         },
         components: {
@@ -24,6 +24,9 @@ import { vacancyList } from '../environment/vacancyList.js'
                 } else {
                     console.log("Cancelar");
                 }
+            },
+            addVancacy(){
+                console.log("Adicionar vaga")
             }
         },
         mounted(){
@@ -51,16 +54,26 @@ import { vacancyList } from '../environment/vacancyList.js'
                     <button :click="toVancancies">Ver vagas</button>
                 </template>
                 <template v-else>
+                    <template v-if="professorMode">
+                        <div class="add-container">
+                            <div class="add-button heading-quaternary" @click="addVancacy()"> 
+                                <span>adicionar</span>
+                                <font-awesome-icon icon="fa-solid fa-square-plus" class="fa-xl" style="color: var(--color-green)" />
+                            </div>
+                        </div>
+                    </template>
                     <div class="vacancy-list">
                         <div class="vacancy-container" v-for="vacancy in vacancies" :key="vacancy.vacancyID">
-                            <div class="cancel-container">
-                                <font-awesome-icon 
-                                    class="fa-3x cancel-icon" 
-                                    :icon="['fas', 'rectangle-xmark']" 
-                                    :style = "{ color: 'var(--color-cancel)' }"
-                                    @click="cancelVacancy(vacancy.vacancyID)"
-                                />
-                            </div>
+                            <template v-if="!professorMode">
+                                <div class="cancel-container">
+                                    <font-awesome-icon 
+                                        class="fa-3x cancel-button" 
+                                        :icon="['fas', 'rectangle-xmark']" 
+                                        :style = "{ color: 'var(--color-cancel)' }"
+                                        @click="cancelVacancy(vacancy.vacancyID)"
+                                    />
+                                </div>
+                            </template>
                             <div class="vacancy-item">
                                 <VacancyItem/>
                             </div>
@@ -157,7 +170,7 @@ import { vacancyList } from '../environment/vacancyList.js'
         flex: 7;
     }
 
-    .cancel-icon {
+    .cancel-button{
         cursor: pointer;
     }
 
@@ -165,6 +178,25 @@ import { vacancyList } from '../environment/vacancyList.js'
         transform: scale(1.1);
     }
 
-    
+    .add-button {
+       color: var(--color-green);
+       background-color: var(--color-green-soft);
+       border-radius: 8px;
+       padding: 4px;
+       width: 110px;
+    }
+    .add-button:hover {
+        cursor: pointer;
+    }
+
+    .add-button span {
+        margin-right: 10px;
+    }
+
+    .add-container {
+        display: flex;
+        justify-content: flex-end;
+        margin: 10px 0;
+    }
 
 </style>
