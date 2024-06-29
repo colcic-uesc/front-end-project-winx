@@ -1,12 +1,14 @@
 <template>
     <div class="logo-container">
-      <img src="@/assets/LogoIcon.svg" alt="Connect CIC Logo">
+      <RouterLink to="/home">
+        <img src="@/assets/LogoIcon.svg" alt="Connect CIC Logo">
+      </RouterLink>
     </div>
-  </template>
+</template>
   
   <script>
   export default {
-    name: 'LogoComponent'
+    name: 'HeaderComponent'
   }
   </script>
   
@@ -15,10 +17,10 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding: 10px;
+    padding: 5px;
     background: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-bottom-right-radius: 50px;
+    border-bottom-right-radius: 20px;
   }
   </style>
   
