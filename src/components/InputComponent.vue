@@ -34,5 +34,8 @@ input {
   border: 1px solid #000; 
   border-radius: 8px; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box; 
+  flex-grow: 1;
+  color: gray;
 }
 </style>

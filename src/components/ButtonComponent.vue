@@ -1,5 +1,6 @@
+<!-- src/components/ButtonComponent.vue -->
 <template>
-  <button @click="handleClick" :class="btnClass">
+  <button :type="btnType" @click="handleClick" :class="btnClass">
     <slot></slot>
   </button>
 </template>
@@ -11,6 +12,10 @@ export default {
     btnClass: {
       type: String,
       default: 'default-button'
+    },
+    btnType: {
+      type: String,
+      default: 'button' 
     }
   },
   methods: {
@@ -23,12 +28,11 @@ export default {
 
 <style scoped>
 .default-button {
-  padding: 10px 25px; 
+  padding: 10px 20px;
   font-size: 16px;
-  color: #000000; 
-  background-color: #F0E63A; 
+  color: #F0E63A;
   border: none;
-  border-radius: 8px; 
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
