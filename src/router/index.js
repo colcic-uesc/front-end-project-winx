@@ -48,6 +48,11 @@ const router = createRouter({
         mode: route.query.mode,
         user: JSON.parse(route.query.user || '{}')
       })
+    },
+    {
+      path: '/edit',
+      name: 'edit-vacancy',
+      component: () => import('../views/EditVacancyView.vue')
     }
   ]
 })
