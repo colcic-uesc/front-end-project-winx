@@ -16,7 +16,7 @@
     },
     methods: {
       handleClick(event) {
-        this.$emit('click', event);
+        this.$emit('clickButton', event);
       }
     }
   }
