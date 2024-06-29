@@ -44,7 +44,7 @@ const router = createRouter({
       component: () => import('../views/SignUpView.vue')
     },
     {
-      path: '/edit',
+      path: '/edit/:id',
       name: 'edit-vacancy',
       component: () => import('../views/EditVacancyView.vue')
     }

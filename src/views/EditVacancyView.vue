@@ -111,9 +111,11 @@ label {
 }
 
 input, textarea {
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+    width: 360px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
 textarea {
@@ -122,7 +124,7 @@ textarea {
 
 .descricao textarea, .requisitos textarea {
   width: 100%;
-  height: 200px; /* Aumentei a altura conforme necessário */
+  height: 200px; 
 }
 
 .descricao {
@@ -135,16 +137,21 @@ textarea {
 
 button {
   grid-area: button;
+  width: 80px; 
+  height: 30px; 
   padding: 8px;
   background-color: #ff0;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
+  font-size: 14px;
+  display: block; 
+  margin: 0 auto;
 }
 
 button:hover {
-  background-color: #ffd700;
+  background-color: #e3c728;
 }
 
   </style>
