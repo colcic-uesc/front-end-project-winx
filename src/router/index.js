@@ -31,17 +31,23 @@ const router = createRouter({
     {
       path: '/signup',
       name: 'signup',
-      component: () => import('../views/SignUpView.vue')
+      component: () => import('../views/SignUpView.vue'),
+      props: {mode: 'signUp'},
     },
     {
       path: '/profile/:id',
       name: 'profile',
-      component: () => import('../views/ProfileView.vue')
+      component: () => import('../views/ProfileView.vue'),
     },
     {
       path: '/profile/:id/edit',
       name: 'profile-edit',
-      component: () => import('../views/SignUpView.vue')
+      component: () => import('../views/SignUpView.vue'),
+      props: route => ({
+        id: route.params.id,
+        mode: route.query.mode,
+        user: JSON.parse(route.query.user || '{}')
+      })
     },
     {
       path: '/edit/:id',

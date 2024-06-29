@@ -43,7 +43,16 @@ import { vacancyList } from '../environment/vacancyList.js'
                 <p class="heading-secondary">Olá! {{ name }}</p>
                 <p>
                     {{ email }}
-                    <RouterLink :to="{ name: 'profile-edit', params: { id: $route.params.id } }" class="edit-link"><font-awesome-icon icon="pen-to-square" style="color: var(--color-variant-background);" /></RouterLink>
+                    <RouterLink 
+                        :to="{ 
+                            name: 'profile-edit', 
+                            params: { id: $route.params.id },
+                            query: { mode: 'editProfessor', user: JSON.stringify({ Login: 'teste@teste.com' }) }
+                        }" 
+                        class="edit-link"
+                    >
+                        <font-awesome-icon icon="pen-to-square" style="color: var(--color-variant-background);" />
+                    </RouterLink>
                 </p>
             </div>
         </div>

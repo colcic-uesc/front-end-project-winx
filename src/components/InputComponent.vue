@@ -3,23 +3,38 @@
     <input 
       :type="type"
       :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
+      @input="updateValue"
       v-bind="$attrs"
     />
   </div>
 </template>
 
 <script setup>
-defineProps({
-  modelValue: {
-    type: String,
-    default: "",
-  },
-  type: {
-    type: String,
-    default: "text",
-  },
-});
+  import { ref, watch} from 'vue';
+
+  const props = defineProps({
+    modelValue: {
+      type: String,
+      default: "",
+    },
+    type: {
+      type: String,
+      default: "text",
+    },
+  });
+
+  defineEmits(['update:modelValue']);
+
+  const inputValue = ref(props.modelValue);
+
+  watch(() => props.modelValue, (newValue) => {
+    inputValue.value = newValue;
+  });
+
+  const updateValue = (event) => {
+    inputValue.value = event.target.value;
+    emit('update:modelValue', inputValue.value);
+  };
 </script>
 
 <style scoped>
@@ -36,6 +51,6 @@ input {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   box-sizing: border-box; 
   flex-grow: 1;
-  color: gray;
+  color: var(--color-text);
 }
 </style>
