@@ -37,6 +37,11 @@ const router = createRouter({
       path: '/profile/:id/edit',
       name: 'profile-edit',
       component: () => import('../views/SignUpView.vue')
+    },
+    {
+    path: '/edit',
+    name: 'edit-vacancy',
+      component: () => import('../views/EditVacancyView.vue')
     }
   ]
 })
