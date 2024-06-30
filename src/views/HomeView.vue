@@ -6,7 +6,7 @@
               <h2 style="color: var(--color-primary); font-size: 30px;"s>Bem-vindo ao ConnectCic</h2>
               <p>Conectando alunos e professores a oportunidades. O ConnectCic é uma plataforma que facilita a comunicação entre professores e alunos, oferecendo um espaço para a publicação e candidatura de vagas de estágio, pesquisa científica, bolsas para projetos e empregos.</p>
               <h3 style="margin-top: 40px;font-size: 16px;">Não tem uma conta?
-                  <button @click="register">Cadastre-se</button>
+                  <RouterLink to = "/signup">Cadastre-se</RouterLink>
               </h3>
               
               </div>
@@ -21,7 +21,7 @@
             <div class="text-content">
               <h3>Sou um aluno!</h3>
               <p>Busco oportunidades.</p>
-              <button @click="viewStudentJobs">Ver vagas</button>
+              <RouterLink to = "/vacancy-list">Ver vagas</RouterLink>
             </div>
           </div>
         </div>
@@ -31,7 +31,13 @@
             <div class="text-content">
               <h3>Sou um professor!</h3>
               <p>Procuro colaboradores.</p>
-              <button @click="viewStudentJobs">Inserir vagas</button>
+              <RouterLink 
+                        :to="{ 
+                            name: 'edit-vacancy', 
+                            params: { id: '1' },
+                        }" 
+                        class="edit-link"
+              >Inserir Vagas</RouterLink>
             </div>
           </div>
         </div>
@@ -40,6 +46,7 @@
   </template>
   
   <script>
+    
 
   </script>
   
