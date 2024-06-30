@@ -1,7 +1,5 @@
 <template>
     <div>
-      <HeaderComponent />
-      <SidebarComponent />
       <div class="container">
         <h2>Dados da vaga</h2>
         <form @submit.prevent="submitForm">
@@ -9,9 +7,12 @@
             <label for="titulo">Título</label>
             <input type="text" id="titulo" v-model="form.titulo" />
           </div>
-          <div class="form-group">
+          <div class="form-group"> 
             <label for="status">Status</label>
-            <input type="text" id="status" v-model="form.status" />
+            <select id="status" v-model="form.status">
+                <option value="aberta">Aberta</option>
+                <option value="fechada">Fechada</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="valor">Valor</label>
@@ -27,8 +28,14 @@
           </div>
           <div class="form-group">
             <label for="tipoVaga">Tipo de Vaga</label>
-            <input type="text" id="tipoVaga" v-model="form.tipoVaga" />
-          </div>
+            <select id="tipoVaga" v-model="form.tipoVaga">
+                <option value="1">Estágio</option>
+                <option value="2">Iniciação Científica</option>
+                <option value="3">Iniciação à Docência</option>
+                <option value="4">TCC</option>
+                <option value="5">Projeto de Extensão</option>
+            </select>
+        </div>
           <div class="form-group descricao">
             <label for="descricao">Descrição</label>
             <textarea id="descricao" v-model="form.descricao"></textarea>
@@ -40,7 +47,6 @@
           <button type="submit">Finalizar</button>
         </form>
       </div>
-      <FooterComponent />
     </div>
   </template>
   
@@ -69,7 +75,8 @@
   };
   </script>
   
-  <style scoped>
+
+<style scoped>
 
 .container {
   display: flex;
