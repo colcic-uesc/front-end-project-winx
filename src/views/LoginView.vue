@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <div class="login-content">
-      <h1>Digite sua credenciais</h1>
+      <h1>Digite suas credenciais</h1>
       <form @submit.prevent="handleSubmit">
         <div class="input-group">
           <font-awesome-icon icon="envelope" class="icon" />
@@ -19,8 +19,9 @@
             placeholder="Senha"
           />
         </div>
-        <ButtonComponent btnClass="login-button">Login</ButtonComponent>
+        <ButtonComponent btnClass="login-button" btnType="submit">Login</ButtonComponent>
       </form>
+      <h3 v-if="msg">{{ msg }}</h3>
     </div>
   </div>
 </template>
@@ -28,17 +29,41 @@
 <script setup>
 import { ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import InputComponent from '../components/InputComponent.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
+import { authUser } from '../api/endpoints'; // Importe a função authUser
+import { useRoute, useRouter } from 'vue-router';
 
 const email = ref('');
 const password = ref('');
+const msg = ref('');
+const router = useRouter();
+const route = useRoute();
 
-const handleSubmit = () => {
-  console.log('Email:', email.value);
-  console.log('Password:', password.value);
-  // Lógica para lidar com o login
+const handleSubmit = async () => {
+  if (email.value && password.value) {
+    msg.value = 'Autenticando...';
+    try {
+      const response = await authUser({ login: 'professor', password: 'professor', Rules: 1, ProfessorID: 1});
+      if (response.token) {
+        console.log(response);
+        msg.value = 'Usuário autenticado! Redirecionando...';
+        localStorage.setItem('token', response.token);
+        console.log(localStorage.getItem("token"));
+        setTimeout(() => {
+          // Redireciona após 3 segundos
+          router.push("/");
+        }, 3000);
+      } else {
+        msg.value = 'Usuário não autenticado! Verifique os dados e tente novamente.';
+      }
+    } catch (error) {
+      msg.value = 'Erro na autenticação! Tente novamente mais tarde.';
+      console.error(error);
+    }
+  } else {
+    msg.value = 'Por favor, preencha todos os campos.';
+  }
 };
 </script>
 
@@ -50,7 +75,7 @@ const handleSubmit = () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 80vh; /* Move os elementos mais para cima */
+  height: 80vh; 
   background-color: #e0e8f9;
 }
 
@@ -59,20 +84,20 @@ const handleSubmit = () => {
 }
 
 h1 {
-  margin-bottom: 30px; /* Ajusta a distância entre o título e os inputs */
+  margin-bottom: 30px;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza os inputs e ícones */
+  align-items: center; 
 }
 
 .input-group {
   display: flex;
   align-items: center;
   margin-bottom: 16px;
-  width: 300px; /* Aumenta a largura dos inputs */
+  width: 300px; 
 }
 
 .icon {
@@ -103,6 +128,6 @@ input {
 }
 
 .login-button:hover {
-    background-color: #F0D400;
+  background-color: #F0D400;
 }
 </style>
