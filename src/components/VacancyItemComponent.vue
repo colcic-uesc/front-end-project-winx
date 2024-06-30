@@ -1,11 +1,32 @@
 <template>
     <div class="vacancy-item">
-      <div class="tag">Disponível</div>
+      <template v-if="vacancy.status === 'Aberta'">
+        <div class="tag available">
+          Disponível
+        </div>
+      </template>
+      <template v-else>
+        <div class="tag unavailable">
+          Indisponível
+        </div>
+      </template>
       <div class="vacancy-details">
         <div class="vacancy-text">
-          <span class="salary">R$ 600,00</span>
-          <h3>Estudo do cacau nas fazendas com Python e Machine Learning</h3>
-          <span class="author">Marcelo Ossamu Honda - Iniciação Científica</span>
+          <span class="salary">
+            {{ numbertoRS }}
+          </span>
+          <h3>
+            {{ vacancy.projectTitle }}
+          </h3>
+          <p>
+            <strong>Descrição: </strong>{{ vacancy.description }}
+          </p>
+          <p>
+            <strong>Requisitos: </strong>{{ vacancy.requirements }}
+          </p>
+          <p class="author" v-if="professor && vacancyType"> 
+            {{ professor.name }} - {{ vacancyType.name }}
+          </p>
         </div>
         <div class="interest-button">
           <button @click="expressInterest">tenho interesse</button>
@@ -15,28 +36,71 @@
   </template>
   
   <script>
+  import { getProfessor, getVacancyType } from '../api/endpoints';
   export default {
+    data() {
+      return {
+        professor: null,
+        vacancyType: null,
+      }
+    },
+    props: {
+      vacancy: {
+        type: Object,
+        required: true,
+      }
+    },
     methods: {
       expressInterest() {
         alert('Interesse registrado!');
+      }
+    },
+    computed: {
+      numbertoRS() {
+        return `R$ ${this.vacancy.value.toFixed(2).toLocaleString()}`;
+      }
+    },
+    async mounted() {
+      try {
+        const professorReponse = await getProfessor(this.vacancy.professorID);
+        
+        if (professorReponse) {
+          this.professor = professorReponse;
+        }
+      } catch (error) {
+        console.error(error);
+      }
+
+      try {
+        const vacancyTypeResponse = await getVacancyType(this.vacancy.vacancyTypeID);
+        
+        if (vacancyTypeResponse) {
+          this.vacancyType = vacancyTypeResponse;
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
   }
   </script>
   
   <style scoped>
-  .vacancy-item {
-    
-  }
   
   .tag {
     font-size: 14px;
-    background-color: var(--color-green);
     color: white;
     font-weight: 550;
     width: 100px;
     text-align: center;
     border-radius: 8px 8px 0px 0px;
+  }
+
+  .tag.available {
+    background-color: var(--color-green);
+  }
+
+  .tag.unavailable {
+    background-color: var(--color-cancel);
   }
   
   .salary {
@@ -44,25 +108,28 @@
   }
   
   .vacancy-details {
-    height: 110px;
+    height: 150px;
     display: flex;
     margin-bottom: 10px;
     background-color: #f0f0f0;
     border-radius: 10px;
     text-align: left;
+    justify-content: space-between;
   }
 
   .vacancy-text {
     padding-top: 20px;
     margin-left: 10px;
-    
     color: var(--color-variant-background);
     line-height: 0.0em;
   }
 
+  .vacancy-text p{
+    line-height: 0.7em;
+  }
+
   .vacancy-text h3{
-    color: var(--color-variant-background);
-    line-height: 1.0em;
+    line-height: 0.7em;
   }
   
   .interest-button button{

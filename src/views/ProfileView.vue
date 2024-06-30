@@ -1,6 +1,5 @@
 <script>
-    import { icon } from '@fortawesome/fontawesome-svg-core';
-import { vacancyList } from '../environment/vacancyList.js'
+    import { vacancyList } from '../environment/vacancyList.js'
     import VacancyItem from '@/components/VacancyItemComponent.vue'
     export default {
         data(){
@@ -84,7 +83,7 @@ import { vacancyList } from '../environment/vacancyList.js'
                                 </div>
                             </template>
                             <div class="vacancy-item">
-                                <VacancyItem/>
+                                <VacancyItem :vacancy="vacancy"/>
                             </div>
                         </div>
                     </div>

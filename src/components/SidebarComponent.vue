@@ -16,8 +16,6 @@
    
   
    <script>
-   
-   import '../assets/base.css';
 
    export default {
      name: 'Sidebar',

@@ -2,6 +2,9 @@
     import VacancyFilter from '@/components/VacancyFilterComponent.vue';
     import VacancyItem from '@/components/VacancyItemComponent.vue';
     import VacancyCategory from '../components/VancancyCategoriesComponent.vue';
+    import { vacancyList } from '../environment/vacancyList.js'
+
+    const vacancies = vacancyList;
 
     function onFilterChanged(filters) {
         console.log(filters);
@@ -24,13 +27,7 @@
           </div>
           <div class="vacancy-list-container">
             <div class="vacancy-list">
-              <VacancyItem />
-              <VacancyItem />
-              <VacancyItem />
-              <VacancyItem />
-              <VacancyItem />
-              <VacancyItem />
-              <VacancyItem />
+              <VacancyItem v-for="vacancy in vacancies" :key="vacancy.vacancyID" :vacancy="vacancy" />
             </div>
           </div>
         </div>
@@ -49,6 +46,10 @@
   margin-left: 330px;
   color: var(--color-variant-background);
   font-weight: 300px; 
+}
+
+.vacancy-list-container{
+  width: 100%;
 }
 
 .vacancies {
