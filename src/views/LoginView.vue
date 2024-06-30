@@ -31,7 +31,7 @@ import { ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import InputComponent from '../components/InputComponent.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
-import { authUser } from '../api/endpoints'; // Importe a função authUser
+import { authUser } from '../api/endpoints'; 
 import { useRoute, useRouter } from 'vue-router';
 
 const email = ref('');

@@ -13,8 +13,8 @@
         <div class="form-group">
           <select v-model="form.status" class="custom-select">
             <option disabled value="">Status</option>
-            <option value="aberta">Aberta</option>
-            <option value="fechada">Fechada</option>
+            <option value="Aberta">Aberta</option>
+            <option value="Fechada">Fechada</option>
           </select>
         </div>
         <div class="form-group">
