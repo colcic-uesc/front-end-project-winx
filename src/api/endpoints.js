@@ -20,6 +20,15 @@ export const getVacancyTypes = async () => {
   }
 };
 
+export const getVacancyType = async (vacancyTypeId) => {
+  try {
+    return await createFetchRequest(`${BASE_URL}/vacancy-types/${vacancyTypeId}`);
+  } catch (error) {
+    console.error('Erro ao buscar vaga:', error);
+    throw error;
+  }
+};
+
 export const authUser = async (userData) => {
   try {
     return await createFetchRequest(`${BASE_URL}/auth/login`, {
@@ -34,3 +43,14 @@ export const authUser = async (userData) => {
     throw error;
   }
 };
+
+export const getProfessor = async (professorId) => {
+  try {
+    return await createFetchRequest(`${BASE_URL}/professors/${professorId}`);
+  } catch (error) {
+    console.error('Erro ao buscar professor:', error);
+    throw error;
+  }
+}
+
+
