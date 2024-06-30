@@ -50,7 +50,7 @@ const router = createRouter({
       })
     },
     {
-      path: '/edit/:id',
+      path: 'vacancy/:id/edit',
       name: 'edit-vacancy',
       component: () => import('../views/EditVacancyView.vue')
     }
