@@ -155,6 +155,10 @@
         margin-bottom: 20px;
     }
 
+    .profile-content{
+        width: 100%;
+    }
+
     .vacancy-list {
         max-height: 400px; /* Defina a altura máxima para a lista de vagas */
         overflow-y: auto; /* Permite scroll vertical se o conteúdo exceder a altura máxima */
