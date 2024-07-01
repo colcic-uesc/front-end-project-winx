@@ -92,12 +92,67 @@ const form = ref({
   requisitos: ''
 });
 
-const submitForm = () => {
-  console.log(form.value);
+const titulo = ref('');
+const status = ref('');
+const  valor  = ref('');
+const  dataInicio = ref('');
+const  dataTermino = ref('');
+const  tipoVaga = ref('');
+const  descricao = ref('');
+const  requisitos = ref('');
+
+const validateForm = () => {
+  const errors = [];
+
+  if (!form.titulo) {
+    errors.push("O campo 'Título' é obrigatório.");
+  } else if (form.titulo.length < 10) {
+    errors.push("O campo 'Título' deve ter no mínimo 10 caracteres.");
+  }
+
+  if (!form.valor) {
+    form.valor = 0;
+  } else if (form.valor <= 0) {
+    errors.push("O campo 'Valor' deve ser maior que zero.");
+  }
+
+  if (!form.dataInicio) {
+    errors.push("O campo 'Data de Início' é obrigatório.");
+  }
+
+  if (!form.dataTermino) {
+    errors.push("O campo 'Data de Término' é obrigatório.");
+  } else if (new Date(form.dataTermino) <= new Date(form.dataInicio)) {
+    errors.push("A 'Data de Término' deve ser maior que a 'Data de Início'.");
+  }
+
+  if (!form.status) {
+    errors.push("Selecione um 'Status' para a vaga.");
+  }
+
+  if (!form.tipoVaga) {
+    errors.push("Selecione um 'Tipo de Vaga' para a vaga.");
+  }
+
+  return errors;
 };
+
+const submitForm = () => {
+  const formErrors = validateForm();
+
+  if (formErrors.length === 0) {
+    console.log('Formulário válido. Enviando dados...');
+  } else {
+    console.log('Por favor, corrija os seguintes erros:');
+    console.log(formErrors);
+  }
+};
+
 </script>
 
+
 <style scoped>
+
 .container {
   display: flex;
   flex-direction: column;
