@@ -6,7 +6,7 @@
               <h2 style="color: var(--color-primary); font-size: 30px;"s>Bem-vindo ao ConnectCic</h2>
               <p>Conectando alunos e professores a oportunidades. O ConnectCic é uma plataforma que facilita a comunicação entre professores e alunos, oferecendo um espaço para a publicação e candidatura de vagas de estágio, pesquisa científica, bolsas para projetos e empregos.</p>
               <h3 style="margin-top: 40px;font-size: 16px;">Não tem uma conta?
-                  <RouterLink to = "/signup">Cadastre-se</RouterLink>
+                  <RouterLink to = "/signup" class="router-link">Cadastre-se</RouterLink>
               </h3>
               
               </div>
@@ -21,7 +21,7 @@
             <div class="text-content">
               <h3>Sou um aluno!</h3>
               <p>Busco oportunidades.</p>
-              <RouterLink to = "/vacancy-list">Ver vagas</RouterLink>
+              <RouterLink to = "/vacancy-list" class="router-link">Ver vagas</RouterLink>
             </div>
           </div>
         </div>
@@ -36,7 +36,7 @@
                             name: 'edit-vacancy', 
                             params: { id: '1' },
                         }" 
-                        class="edit-link"
+                        class="router-link"
               >Inserir Vagas</RouterLink>
             </div>
           </div>
@@ -115,15 +115,6 @@
     font-weight: 500;
   }
 
-  .roles button {
-    background: none;
-    border: none;
-    font-size: 18px;
-    color: var(--color-primary-hover);
-    text-underline-offset: 4px;
-    text-decoration: underline;
-  }
-
   .roles .student {
     background-color: var(--color-secondary);
     display: inline-block;
@@ -146,13 +137,37 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
-  .welcome button {
-    background-color: transparent;
-    border: none;
-    color: var(--color-primary-hover);
-    font-weight: bold;
+  
+  a.router-link {
     font-size: 18px;
+    color: var(--color-primary-hover);
     text-decoration: underline;
+  }
+
+  a.router-link:hover{
+    color: var(--color-primary);
+  }
+  
+
+  a.roles.router-link{
+    text-underline-offset: 4px;
+  }
+
+  a.welcome.router-link{
+    background-color: transparent;
+    font-weight: bold;
+  }
+
+  a.router-link:visited {
+    color: var(--color-primary-hover);
+  }
+
+  a.router-link:visited:hover {
+    color: var(--color-primary);
+  }
+
+  .home{
+    min-height: 90vh;
   }
   </style>
   
