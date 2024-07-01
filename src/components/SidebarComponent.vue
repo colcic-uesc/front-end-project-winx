@@ -32,6 +32,7 @@
          this.$router.push('/home');
        },
        goProfile() {
+        // todo: edit the route
          this.$router.push('/profile/1');
        },
        goJobs() {

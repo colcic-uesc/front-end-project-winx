@@ -35,11 +35,19 @@ const router = createRouter({
       props: {mode: 'signUp'},
     },
     {
-      path: '/profile/:id',
-      name: 'profile',
+      path: '/professor/:id/profile',
+      name: 'professor-profile',
+      props: {professorMode: true},
       component: () => import('../views/ProfileView.vue'),
     },
     {
+      path: '/student/:id/profile',
+      name: 'student-profile',
+      props: {professorMode: false},
+      component: () => import('../views/ProfileView.vue'),
+    },
+    {
+      // todo: edit profile route
       path: '/profile/:id/edit',
       name: 'profile-edit',
       component: () => import('../views/SignUpView.vue'),

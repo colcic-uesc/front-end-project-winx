@@ -7,7 +7,12 @@
                 name: 'Everaldina Guimarães',
                 email: 'egbarbosa.cic@uesc.br',
                 vacancies: vacancyList,
-                professorMode: true,
+            }
+        },
+        props: {
+            professorMode: {
+                type: Boolean,
+                default: false
             }
         },
         components: {

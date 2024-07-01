@@ -246,7 +246,7 @@ const handleSubmitProfessor = async () => {
       msg.value = ['Professor cadastrado com sucesso! Redirecionando...'];
       setTimeout(() => {
         // Redireciona após 3 segundos
-        router.push({ name: 'profile', params: { id: professorId} })
+        router.push({ name: 'professor-profile', params: { id: professorId} })
       }, 1000);
     }, 2000);
   } else {
@@ -313,7 +313,7 @@ const handleSubmitStudent = async () => {
         msg.value = ['Aluno cadastrado com sucesso! Redirecionando...'];
         setTimeout(() => {
           // Redireciona após 3 segundos
-          router.push({ name: 'profile', params: { id: studentId} })
+          router.push({ name: 'student-profile', params: { id: studentId} })
         }, 1000);
       }, 2000);
     }
