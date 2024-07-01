@@ -53,4 +53,63 @@ export const getProfessor = async (professorId) => {
   }
 }
 
+export const postProfessor = async (professortData) => {
+  try {
+    return await createFetchRequest(`${BASE_URL}/professors`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(professortData),
+    });
+  } catch (error) {
+    console.error('Erro ao cadastrar professor:', error);
+    throw error;
+  }
+};
 
+export const postStudent = async (studentData) => {
+  try {
+    return await createFetchRequest(`${BASE_URL}/students`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(studentData),
+    });
+  } catch (error) {
+    console.error('Erro ao cadastrar aluno:', error);
+    throw error;
+  }
+};
+
+export const postStudentUser = async (studentData) => {
+  try {
+    return await createFetchRequest(`${BASE_URL}/users/students`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(studentData),
+    });
+  } catch (error) {
+    console.error('Erro ao usuario: ', error);
+    throw error;
+  }
+};
+
+
+export const postProfessorUser = async (professorData) => {
+  try {
+    return await createFetchRequest(`${BASE_URL}/users/professors`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(professorData),
+    });
+  } catch (error) {
+    console.error('Erro ao usuario: ', error);
+    throw error;
+  }
+};

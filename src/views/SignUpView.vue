@@ -15,9 +15,9 @@
   import { getClaimFromToken } from '../utils/jwtDecoder'
 
   const props = defineProps(['mode']);
-  console.log(localStorage.getItem("token"));
-  const token = localStorage.getItem('token');
-  console.log(getClaimFromToken(token,'userName'));
+  // const token = localStorage.getItem('token');
+  // console.log(localStorage.getItem("token"));
+  //console.log(getClaimFromToken(token,'userName'));
 
 </script>
 

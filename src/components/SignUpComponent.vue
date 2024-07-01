@@ -122,6 +122,14 @@ import { onMounted, ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import InputComponent from '../components/InputComponent.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
+import { postStudent } from '../api/endpoints';
+import { postStudentUser } from '../api/endpoints';
+import { postProfessor } from '../api/endpoints';
+import { postProfessorUser } from '../api/endpoints'
+import { useRoute, useRouter } from 'vue-router';
+
+const router = useRouter();
+const route = useRoute();
 
 const props = defineProps({
   user: {
@@ -195,30 +203,122 @@ const handleSubmitUser = () => {
   }
 };
 
-const handleSubmitProfessor = () => {
+const handleSubmitProfessor = async () => {
   if (name.value && isValidEmail(contactEmail.value) && department.value) {
+    if (name.value.length < 6){
+      msg.value = ["O nome deve conter no minimo 6 caracteres"];
+      return;
+    }
+
     console.log('Name:', name.value);
     console.log('ContactEmail:', contactEmail.value);
     console.log('Department:', department.value);
-    msg.value = '';
+    msg.value = ['Cadrastrando professor...'];
+
+    let professorId;
+    try {
+      const professorReponse = await postProfessor({
+        Name: name.value,
+        Email: contactEmail.value,
+        Department: department.value
+      });
+
+      professorId = professorReponse.professorID;
+      console.log(professorId);
+    } catch (error) {
+      msg.value = ['Erro ao cadastrar professor. Tente novamente mais tarde.'];
+      return;
+    }
+
+    try{
+      const userResponse = await postProfessorUser({
+        Login: email.value,
+        Password: password.value,
+        ProfessorId: professorId
+      });
+      console.log(userResponse);
+    } catch (error) {
+      msg.value = ['Erro ao cadastrar usuário. Tente novamente mais tarde.'];
+      return;
+    }
+
+    setTimeout(() => {
+      msg.value = ['Professor cadastrado com sucesso! Redirecionando...'];
+      setTimeout(() => {
+        // Redireciona após 3 segundos
+        router.push({ name: 'profile', params: { id: professorId} })
+      }, 1000);
+    }, 2000);
   } else {
-    msg.value = 'Por favor, preencha todos os campos corretamente.';
+    msg.value = ['Por favor, preencha todos os campos corretamente.'];
   }
 };
 
-const handleSubmitStudent = () => {
+const handleSubmitStudent = async () => {
   if (name.value && isValidEmail(contactEmail.value) && course.value) {
-    if (craa.value && craa.value >= 0 ) {
+    if (name.value.length < 6){
+      msg.value = ["O nome deve conter no minimo 6 caracteres"];
+      return;
+    }
+
+
+    if (!craa.value){
+      craa.value = 0;
+    }
+
+    if (craa.value < 0) {
+      msg.value = ['CRAA não pode ser negativo.'];
+      return;
+    }else if (craa.value > 10) {
+      msg.value = ['CRAA não pode ser maior que 10.'];
+      return;
+    }else{
       console.log('Name:', name.value);
       console.log('ContactEmail:', contactEmail.value);
       console.log('Craa:', craa.value);
       console.log('Course:', course.value);
-      msg.value = '';
-    } else {
-      msg.value = 'CRAA não pode ser nulo ou negativo. Por favor, preencha corretamente.';
+      msg.value = ['Cadrastrando aluno...'];
+
+
+      let studentId;
+      try {
+        const studentReponse = await postStudent({
+          Name: name.value,
+          Email: contactEmail.value,
+          CRAA: craa.value,
+          Course: course.value,
+          Status: 'Cursando'})
+
+        studentId = studentReponse.studentID;
+        console.log(studentReponse);
+      } catch (error) {
+        msg.value = ['Erro ao cadastrar aluno. Tente novamente mais tarde.'];
+        return;
+      }
+
+      try{
+        const userResponse = await postStudentUser({
+          Login: email.value,
+          Password: password.value,
+          StudentId: studentId
+        })
+        console.log(userResponse);
+      } catch (error) {
+        msg.value = ['Erro ao cadastrar usuário. Tente novamente mais tarde.'];
+        return;
+      }
+
+
+      setTimeout(() => {
+        msg.value = ['Aluno cadastrado com sucesso! Redirecionando...'];
+        setTimeout(() => {
+          // Redireciona após 3 segundos
+          router.push({ name: 'profile', params: { id: studentId} })
+        }, 1000);
+      }, 2000);
     }
   } else {
-    msg.value = 'Por favor, preencha todos os campos corretamente.';
+    msg.value = ['Por favor, preencha todos os campos corretamente.'];
   }
 };
 
