@@ -20,7 +20,7 @@
         <div class="form-group">
           <InputComponent
             v-model="form.valor"
-            type="text"
+            type="number"
             placeholder="Valor"
           />
         </div>
@@ -82,82 +82,95 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import InputComponent from '../components/InputComponent.vue';
-import ButtonComponent from '../components/ButtonComponent.vue';
+  import { onMounted, ref } from 'vue';
+  import InputComponent from '../components/InputComponent.vue';
+  import ButtonComponent from '../components/ButtonComponent.vue';
 
-const form = ref({
-  titulo: '',
-  status: '',
-  valor: '',
-  dataInicio: '',
-  dataTermino: '',
-  tipoVaga: '',
-  descricao: '',
-  requisitos: ''
-});
+  const props = defineProps(['vacancy']);
 
-const titulo = ref('');
-const status = ref('');
-const  valor  = ref('');
-const  dataInicio = ref('');
-const  dataTermino = ref('');
-const  tipoVaga = ref('');
-const  descricao = ref('');
-const  requisitos = ref('');
-const formErrors = ref([]);
 
-const validateForm = () => {
-  const errors = [];
+  const form = ref({
+    titulo: '',
+    status: '',
+    valor: 0,
+    dataInicio: '',
+    dataTermino: '',
+    tipoVaga: '',
+    descricao: '',
+    requisitos: ''
+  });
 
-  if (!form.value.titulo) {
-    errors.push("O campo 'Título' é obrigatório.");
-  } else if (form.value.titulo.length < 10) {
-    errors.push("O campo 'Título' deve ter no mínimo 10 caracteres.");
-  }
 
-  if (!form.value.valor) {
-    form.value.valor = 0;
-  } if (form.value.valor < 0) {
-    errors.push("O campo 'Valor' não pode ser negativo.");
-  }
+  const formErrors = ref([]);
 
-  if (!form.value.dataInicio) {
-    errors.push("O campo 'Data de Início' é obrigatório.");
-  }
+  onMounted(async () => {
+    console.log(props.vacancy);
+    if (props.vacancy) {
+      console.log(props.vacancy);
+      form.value.valor = props.vacancy.value;
+      form.value.dataInicio = props.vacancy.startDate;
+      form.value.dataTermino = props.vacancy.endDate;
+      form.value.requisitos = props.vacancy.requirements;
+      form.value.descricao = props.vacancy.description;
+      form.value.titulo = props.vacancy.projectTitle;
+      form.value.status = props.vacancy.status;
+      form.value.tipoVaga = props.vacancy.vacancyTypeID
+    }
 
-  if (!form.value.dataTermino) {
-    errors.push("O campo 'Data de Término' é obrigatório.");
-  } else if (new Date(form.value.dataTermino) <= new Date(form.value.dataInicio)) {
-    errors.push("A 'Data de Término' deve ser maior que a 'Data de Início'.");
-  }
-
-  if (!form.value.status) {
-    errors.push("Selecione um 'Status' para a vaga.");
-  }
-
-  if (!form.value.tipoVaga) {
-    errors.push("Selecione um 'Tipo de Vaga' para a vaga.");
-  }
-
-  return errors;
-};
-
-const submitForm = () => {
-  formErrors.value = validateForm();
-
-  if (formErrors.value.length === 0) {
-    formErrors.value = [];
     console.log(form.value);
-    addVacancy();
-  } else {
-    console.log(formErrors.value);
-  }
-};
+  });
 
-const addVacancy = () => {
-  console.log("Vaga adicionada com sucesso!");
-}; 
+  const validateForm = () => {
+    const errors = [];
+
+    if (!form.value.titulo) {
+      errors.push("O campo 'Título' é obrigatório.");
+    } else if (form.value.titulo.length < 10) {
+      errors.push("O campo 'Título' deve ter no mínimo 10 caracteres.");
+    }
+
+    if (!form.value.valor) {
+      form.value.valor = 0;
+    } if (form.value.valor < 0) {
+      errors.push("O campo 'Valor' não pode ser negativo.");
+    }
+
+    if (!form.value.dataInicio) {
+      errors.push("O campo 'Data de Início' é obrigatório.");
+    }
+
+    if (!form.value.dataTermino) {
+      errors.push("O campo 'Data de Término' é obrigatório.");
+    } else if (new Date(form.value.dataTermino) <= new Date(form.value.dataInicio)) {
+      errors.push("A 'Data de Término' deve ser maior que a 'Data de Início'.");
+    }
+
+    if (!form.value.status) {
+      errors.push("Selecione um 'Status' para a vaga.");
+    }
+
+    if (!form.value.tipoVaga) {
+      errors.push("Selecione um 'Tipo de Vaga' para a vaga.");
+    }
+
+    return errors;
+  };
+
+  const submitForm = () => {
+    formErrors.value = validateForm();
+
+    if (formErrors.value.length === 0) {
+      formErrors.value = [];
+      console.log(form.value);
+      addVacancy();
+    } else {
+      console.log(formErrors.value);
+    }
+  };
+
+  const addVacancy = () => {
+    console.log("Vaga adicionada com sucesso!");
+  }; 
 
 </script>
 

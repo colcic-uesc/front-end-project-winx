@@ -11,6 +11,16 @@ export const getVacancies = async () => {
   }
 };
 
+export const getVacancy = async (vacancyId) => {
+  try {
+    return await createFetchRequest(`${BASE_URL}/vacancies/${vacancyId}`);
+  }
+  catch (error) {
+    console.error('Erro ao buscar vaga:', error);
+    throw error;
+  }
+};
+
 export const getVacancyTypes = async () => {
   try {
     return await createFetchRequest(`${BASE_URL}/vacancy-types`);

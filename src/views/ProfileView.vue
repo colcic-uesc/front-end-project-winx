@@ -35,7 +35,7 @@
                 }
             },
             addVancacy(){
-                console.log("Adicionar vaga")
+                this.$router.push({ name: 'create-vacancy' });
             },
             logout(){
                 localStorage.removeItem('token');

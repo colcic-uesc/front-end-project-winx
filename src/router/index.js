@@ -60,8 +60,15 @@ const router = createRouter({
     {
       path: '/vacancy/:id/edit',
       name: 'edit-vacancy',
-      component: () => import('../views/EditVacancyView.vue')
+      component: () => import('../views/VacancyView.vue'),
+      props: {editMode: true}
     },
+    {
+      path: '/vacancy/create',
+      name: 'create-vacancy',
+      component: () => import('../views/VacancyView.vue'),
+      props: {editMode: false}
+    }
   ]
 })
 
