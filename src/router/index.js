@@ -31,7 +31,7 @@ const router = createRouter({
     {
       path: '/signup',
       name: 'signup',
-      component: () => import('../views/SignUpView.vue'),
+      component: () => import('../views/UserView.vue'),
     },
     {
       path: '/professor/:id/profile',
@@ -48,13 +48,13 @@ const router = createRouter({
     {
       path: '/professor/:id/profile/edit',
       name: 'professor-profile-edit',
-      component: () => import('../views/SignUpView.vue'),
+      component: () => import('../views/UserView.vue'),
       props: {signUpMode: false}
     },
     {
       path: '/student/:id/profile/edit',
       name: 'student-profile-edit',
-      component: () => import('../views/SignUpView.vue'),
+      component: () => import('../views/UserView.vue'),
       props: {signUpMode: false}
     },
     {
