@@ -33,7 +33,8 @@ import InputComponent from '../components/InputComponent.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
 import { authUser } from '../api/endpoints'; 
 import { useRoute, useRouter } from 'vue-router';
-import { getClaimFromToken } from '../utils/jwtDecoder';
+import { getIdFromToken } from '../utils/jwtDecoder';
+import { getRoleFromToken } from '../utils/jwtDecoder';
 
 const email = ref('');
 const password = ref('');
@@ -51,8 +52,8 @@ const handleSubmit = async () => {
       msg.value = 'Usuário autenticado! Redirecionando...';
       localStorage.setItem('token', token);
       
-      const id = getClaimFromToken(token, 'id');
-      const role = getClaimFromToken(token, 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role');
+      const id = getIdFromToken(token);
+      const role = getRoleFromToken(token);
 
 
       setTimeout(() => {
