@@ -20,8 +20,8 @@
         <div class="form-group">
           <InputComponent
             v-model="form.valor"
-            type="number"
-            placeholder="Valor"
+            type="text"
+            placeholder="Valor (R$)"
           />
         </div>
         <div class="form-group">
