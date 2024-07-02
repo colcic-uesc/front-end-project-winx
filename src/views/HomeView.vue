@@ -31,13 +31,9 @@
             <div class="text-content">
               <h3>Sou um professor!</h3>
               <p>Procuro colaboradores.</p>
-              <RouterLink 
-                        :to="{ 
-                            name: 'edit-vacancy', 
-                            params: { id: '1' },
-                        }" 
-                        class="router-link"
-              >Inserir Vagas</RouterLink>
+              <RouterLink :to="{ name: 'create-vacancy'}"class="router-link">
+                Inserir Vagas
+              </RouterLink>
             </div>
           </div>
         </div>
