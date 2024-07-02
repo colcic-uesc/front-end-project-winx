@@ -1,12 +1,17 @@
 <script>
-    import { vacancyList } from '../environment/vacancyList.js'
-    import VacancyItem from '@/components/VacancyItemComponent.vue'
+    import { getProfessor } from '../api/endpoints.js';
+    import VacancyItem from '@/components/VacancyItemComponent.vue';
+    import { getStudent } from '../api/endpoints.js';
+    import { getProfessorVacancies } from '../api/endpoints.js';
+    import { getStudentVacancies } from '../api/endpoints.js';
+
+
     export default {
         data(){
             return {
-                name: 'Everaldina Guimarães',
-                email: 'egbarbosa.cic@uesc.br',
-                vacancies: vacancyList,
+                name: '',
+                email: '',
+                vacancies: {}
             }
         },
         props: {
@@ -37,8 +42,35 @@
                 this.$router.push('/');
             }
         },
-        mounted(){
-            console.log(this.vacancies)
+        async mounted(){
+            let profileResponse, vacancyResponse;
+            const token = localStorage.getItem('token');
+
+            try{
+                if (this.professorMode)
+                    profileResponse = await getProfessor(this.$route.params.id);
+                else 
+                    profileResponse = await getStudent(this.$route.params.id, token);
+
+                this.name = profileResponse.name;
+                this.email = profileResponse.email;
+            }catch(e){
+                console.error(e);
+                this.$router.push('/');
+            }
+
+            try{
+                if (this.professorMode)
+                    vacancyResponse = await getProfessorVacancies(this.$route.params.id);
+                else
+                    vacancyResponse = await getStudentVacancies(this.$route.params.id, token);
+
+                this.vacancies = vacancyResponse;
+            }catch(e){
+                console.error(e);
+                this.$router.push('/');
+            }
+            
         }
     }
 </script>
@@ -76,8 +108,9 @@
         <div class="profile-container">
             <div class="profile-content">
                 <template v-if="vacancies.length == 0">
-                    <p>Você não está inscrito em nenhuma vaga!</p>
-                    <button :click="toVancancies">Ver vagas</button>
+                    <p>Você não possui nenhuma vaga!</p>
+                    <button v-if="professorMode" class="vacancy-button heading-quaternary" @click="addVancacy">Adiconar vaga</button>
+                    <button v-else class="vacancy-button heading-quaternary" @click="toVancancies">Ver vagas</button>
                 </template>
                 <template v-else>
                     <template v-if="professorMode">
@@ -260,6 +293,16 @@
     .container{
         display: flex;
         gap: 10px;
+    }
+
+    .vacancy-button{
+        background-color: var(--color-variant-background);
+        border: none;
+        color: var(--color-white);
+        border-radius: 10px;
+        padding: 6px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s;
     }
 
 </style>
