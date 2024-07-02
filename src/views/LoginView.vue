@@ -33,6 +33,7 @@ import InputComponent from '../components/InputComponent.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
 import { authUser } from '../api/endpoints'; 
 import { useRoute, useRouter } from 'vue-router';
+import { getClaimFromToken } from '../utils/jwtDecoder';
 
 const email = ref('');
 const password = ref('');
@@ -44,22 +45,26 @@ const handleSubmit = async () => {
   if (email.value && password.value) {
     msg.value = 'Autenticando...';
     try {
-      const response = await authUser({ login: 'professor', password: 'professor', Rules: 1, ProfessorID: 1});
-      if (response.token) {
-        console.log(response);
-        msg.value = 'Usuário autenticado! Redirecionando...';
-        localStorage.setItem('token', response.token);
-        console.log(localStorage.getItem("token"));
-        setTimeout(() => {
-          // Redireciona após 3 segundos
-          router.push("/");
-        }, 3000);
-      } else {
-        msg.value = 'Usuário não autenticado! Verifique os dados e tente novamente.';
-      }
+      const response = await authUser({ login: email.value, password: password.value});
+      const token = response.token;
+
+      msg.value = 'Usuário autenticado! Redirecionando...';
+      localStorage.setItem('token', token);
+      
+      const id = getClaimFromToken(token, 'id');
+      const role = getClaimFromToken(token, 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role');
+
+
+      setTimeout(() => {
+        // Redireciona após 3 segundos
+        if (role === 'Professor')
+          router.push({ name: 'professor-profile', params: { id: id} })
+        else    
+          router.push({ name: 'student-profile', params: { id: id} })
+      }, 1000);
     } catch (error) {
-      msg.value = 'Erro na autenticação! Tente novamente mais tarde.';
-      console.error(error);
+      msg.value = 'Usuário não autenticado! Verifique os dados e tente novamente.';
+      console.error("erro de senha errada", error.message);
     }
   } else {
     msg.value = 'Por favor, preencha todos os campos.';

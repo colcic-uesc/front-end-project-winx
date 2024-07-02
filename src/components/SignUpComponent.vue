@@ -126,6 +126,7 @@ import { postStudent } from '../api/endpoints';
 import { postStudentUser } from '../api/endpoints';
 import { postProfessor } from '../api/endpoints';
 import { postProfessorUser } from '../api/endpoints'
+import { authUser } from '../api/endpoints';
 import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -242,6 +243,12 @@ const handleSubmitProfessor = async () => {
       return;
     }
 
+    const authResponse = await authUser({ login: email.value, password: password.value});
+    const token = authResponse.token;
+
+    localStorage.setItem('token', token);
+    console.log(token);
+
     setTimeout(() => {
       msg.value = ['Professor cadastrado com sucesso! Redirecionando...'];
       setTimeout(() => {
@@ -308,6 +315,11 @@ const handleSubmitStudent = async () => {
         return;
       }
 
+      const authResponse = await authUser({ login: email.value, password: password.value});
+      const token = authResponse.token;
+
+      localStorage.setItem('token', token);
+      console.log(token);
 
       setTimeout(() => {
         msg.value = ['Aluno cadastrado com sucesso! Redirecionando...'];
