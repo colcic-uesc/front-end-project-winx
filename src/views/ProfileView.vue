@@ -1,9 +1,9 @@
 <script>
-    import { getProfessor } from '../api/endpoints.js';
+    import { getProfessor } from '../services/endpoints.js';
     import VacancyItem from '@/components/VacancyItemComponent.vue';
-    import { getStudent } from '../api/endpoints.js';
-    import { getProfessorVacancies } from '../api/endpoints.js';
-    import { getStudentVacancies } from '../api/endpoints.js';
+    import { getStudent } from '../services/endpoints.js';
+    import { getProfessorVacancies } from '../services/endpoints.js';
+    import { getStudentVacancies } from '../services/endpoints.js';
 
 
     export default {

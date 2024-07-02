@@ -36,7 +36,7 @@
   </template>
   
   <script>
-  import { getProfessor, getVacancyType } from '../api/endpoints';
+  import { getProfessor, getVacancyType } from '../services/endpoints';
   export default {
     data() {
       return {

@@ -2,7 +2,7 @@
     import VacancyFilter from '@/components/VacancyFilterComponent.vue';
     import VacancyItem from '@/components/VacancyItemComponent.vue';
     import VacancyCategory from '../components/VancancyCategoriesComponent.vue';
-    import { getVacancies } from '@/api/endpoints';
+    import { getVacancies } from '@/services/endpoints';
     import { onMounted, ref } from 'vue';
 
     const vacancies = ref([]);

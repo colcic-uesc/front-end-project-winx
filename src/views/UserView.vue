@@ -15,10 +15,10 @@
   import userForm from '../components/UserFormComponent.vue'
   import { getIdFromToken } from '../utils/jwtDecoder'
   import { getRoleFromToken } from '../utils/jwtDecoder'
-  import { getProfessorUser } from '../api/endpoints'
-  import { getStudentUser } from '../api/endpoints'
-  import { getProfessor } from '../api/endpoints'
-  import { getStudent } from '../api/endpoints'
+  import { getProfessorUser } from '../services/endpoints'
+  import { getStudentUser } from '../services/endpoints'
+  import { getProfessor } from '../services/endpoints'
+  import { getStudent } from '../services/endpoints'
 
   const props = defineProps({
     signUpMode: {

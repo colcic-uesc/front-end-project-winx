@@ -31,7 +31,7 @@ import { ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import InputComponent from '../components/InputComponent.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
-import { authUser } from '../api/endpoints'; 
+import { authUser } from '../services/endpoints'; 
 import { useRoute, useRouter } from 'vue-router';
 import { getIdFromToken } from '../utils/jwtDecoder';
 import { getRoleFromToken } from '../utils/jwtDecoder';
