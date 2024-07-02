@@ -15,32 +15,51 @@
    </template>
    
   
-   <script>
+<script>
+  import { getRoleFromToken, getExpirationDateFromToken, getIdFromToken } from '../utils/jwtDecoder'
+  export default {
+    name: 'Sidebar',
+    data() {
+      return {
+        isCollapsed: false
+      };
+    },
+    methods: {
+      toggleMenu() {
+        this.isCollapsed = !this.isCollapsed;
+      },
+      goHome() {
+        this.$router.push('/home');
+      },
+      goProfile() {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const role = getRoleFromToken(token);
+          const expirationDate = getExpirationDateFromToken(token);
+          const tokenId = getIdFromToken(token);
 
-   export default {
-     name: 'Sidebar',
-     data() {
-       return {
-         isCollapsed: false
-       };
-     },
-     methods: {
-       toggleMenu() {
-         this.isCollapsed = !this.isCollapsed;
-       },
-       goHome() {
-         this.$router.push('/home');
-       },
-       goProfile() {
-        // todo: edit the route
-         this.$router.push('/profile/1');
-       },
-       goJobs() {
-         this.$router.push('/vacancy-list');
-       }
-     }
-   }
-   </script>
+          if (expirationDate < new Date()) {
+            localStorage.removeItem('token');
+            this.$router.push('/login');
+          }else{
+            if (role === 'Student') {
+              this.$router.push({ name: 'student-profile', params: { id: tokenId } });
+            } else if (role === 'Professor') {
+              this.$router.push({ name: 'professor-profile', params: { id: tokenId } });
+            }else{
+              console.error('Invalid role');
+            }
+          }
+        } else {
+          this.$router.push('/login');
+        }
+      },
+      goJobs() {
+        this.$router.push('/vacancy-list');
+      }
+    }
+  }
+</script>
 
    <style scoped>
    .sidebar {
