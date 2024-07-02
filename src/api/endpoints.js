@@ -129,6 +129,19 @@ export const getStudentVacancies = async (studentId, token) => {
   }
 };
 
+export const getStudentUser = async (studentId, token) => {
+  try {
+    return await createFetchRequest(`${BASE_URL}/users/students/${studentId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    console.error('Erro ao buscar aluno:', error);
+    throw error;
+  }
+}
+
 export const postStudentUser = async (studentData) => {
   try {
     return await createFetchRequest(`${BASE_URL}/users/students`, {
@@ -143,6 +156,19 @@ export const postStudentUser = async (studentData) => {
     throw error;
   }
 };
+
+export const getProfessorUser = async (professorId, token) => {
+  try {
+    return await createFetchRequest(`${BASE_URL}/users/professors/${professorId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    console.error('Erro ao buscar professor:', error);
+    throw error;
+  }
+}
 
 
 export const postProfessorUser = async (professorData) => {

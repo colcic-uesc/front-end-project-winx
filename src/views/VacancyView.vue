@@ -10,7 +10,7 @@
     const props = defineProps({
         editMode: {
             type: Boolean,
-            default: true
+            default: false
         },
     });
 
