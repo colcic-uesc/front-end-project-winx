@@ -2,9 +2,10 @@
     import VacancyFilter from '@/components/VacancyFilterComponent.vue';
     import VacancyItem from '@/components/VacancyItemComponent.vue';
     import VacancyCategory from '../components/VancancyCategoriesComponent.vue';
-    import { vacancyList } from '../environment/vacancyList.js'
+    import { getVacancies } from '@/api/endpoints';
+    import { onMounted, ref } from 'vue';
 
-    const vacancies = vacancyList;
+    const vacancies = ref([]);
 
     function onFilterChanged(filters) {
         console.log(filters);
@@ -13,6 +14,15 @@
     function onCategoriesChanged(categories) {
         console.log(categories);
     }
+
+    onMounted(async () => {
+        try {
+            const response = await getVacancies();
+            vacancies.value = response;
+        } catch (error) {
+            console.error(error);
+        }
+    }); 
 
 
 </script>
