@@ -28,8 +28,11 @@
             {{ professor.name }} - {{ vacancyType.name }}
           </p>
         </div>
-        <div class="interest-button">
-          <button @click="expressInterest">tenho interesse</button>
+        <div class="interest-button" :class="{'disabled':templateMode==='professorMode' && !ownedVacancy}">
+          <button @click="expressInterest" :disabled="templateMode==='professorMode' && !ownedVacancy">
+            {{ buttonMessage() }}
+          </button>
+
         </div>
       </div>
     </div>
@@ -48,11 +51,34 @@
       vacancy: {
         type: Object,
         required: true,
+      },
+      templateMode: {
+        type: String,
+        default: 'professorMode'
+      },
+      ownedVacancy: {
+        type: Boolean,
+        default: false
       }
     },
+    
     methods: {
       expressInterest() {
         alert('Interesse registrado!');
+      },
+      buttonMessage() {
+        if (this.templateMode==='studentMode'){
+          if(this.ownedVacancy){
+            return 'Retirar Interesse'
+          }
+          return 'Tenho Interesse'
+        }
+        else if (this.templateMode==='professorMode'){
+          return 'Editar Vaga'
+        }
+        else {
+          return 'Tenho Interesse'
+        }
       }
     },
     computed: {
@@ -141,6 +167,11 @@
     border: none;
     cursor: pointer;
     align-content: center;
+  }
+
+  .interest-button.disabled button {
+    opacity: 0.8;
+    cursor: default;
   }
 
   </style>
