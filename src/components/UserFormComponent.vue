@@ -2,7 +2,9 @@
   <div class="signup-container">
     <template v-if="mode == 0">
       <div class="signup-content">
-        <h1>Crie sua conta</h1>
+        <h1>
+          {{ user ? 'Novas credenciais' : 'Crie sua conta' }}
+        </h1>
         <form @submit.prevent="handleSubmitUser">
           <div class="input-group">
             <font-awesome-icon icon="envelope" class="icon" />
@@ -20,7 +22,7 @@
               placeholder="Senha"
             />
           </div>
-          <div class="input-group">
+          <div class="input-group" v-if="!user">
             <font-awesome-icon icon="user" class="icon" />
             <select v-model="userType" class="select-input">
               <option disabled value="">Selecione um tipo de usuário</option>
@@ -28,13 +30,15 @@
               <option value="Student">Aluno</option>
             </select>
           </div>
-          <ButtonComponent btnClass="signup-button" btnType="submit">Cadastrar</ButtonComponent>
+          <ButtonComponent btnClass="signup-button" btnType="submit">
+            {{ user ? 'Continuar' : 'Cadastrar'}}
+          </ButtonComponent>
         </form>
       </div>
     </template>
     <template v-if="mode == 1">
       <div class="signup-content">
-        <h1>Crie sua conta</h1>
+        <h1>Dados pessoais</h1>
         <form @submit.prevent="handleSubmitProfessor">
           <div class="input-group">
             <font-awesome-icon icon="user" class="icon" />
@@ -60,13 +64,17 @@
               placeholder="Departamento"
             />
           </div>
-          <ButtonComponent btnClass="signup-button" btnType="submit">Finalizar</ButtonComponent>
+          <ButtonComponent btnClass="signup-button" btnType="submit">
+            Finalizar
+          </ButtonComponent>
         </form>
       </div>
     </template>
     <template v-if="mode == 2">
       <div class="signup-content">
-        <h1>Crie sua conta</h1>
+        <h1>
+          Dados pessoais
+        </h1>
         <form @submit.prevent="handleSubmitStudent">
           <div class="input-group">
             <font-awesome-icon icon="user" class="icon" />
@@ -181,7 +189,7 @@ const handleSubmitUser = () => {
     console.log('Email:', email.value);
     console.log('Password:', password.value);
     console.log('User:', userType.value);
-    if (userType.value == 'Professor') {
+    if (userType.value == 'Professor' || props.professor) {
       mode.value = 1;
     } else {
       mode.value = 2;
@@ -335,14 +343,17 @@ onMounted(() => {
     email.value = props.user.login 
     password.value = ''
     if (props.professor) {
+      console.log('Professor:', props.professor);
       name.value = props.professor.name,
-      email.value = props.professor.email,
+      contactEmail.value = props.professor.email,
       department.value = props.professor.department
+      userType.value = 'Professor'
     } else if (props.student) {
       name.value = props.student.name,
-      email.value = props.student.email,
+      contactEmail.value = props.student.email,
       craa.value = props.student.craa,
       course.value = props.student.course
+      userType.value = 'Student'
     }
   }
 });
