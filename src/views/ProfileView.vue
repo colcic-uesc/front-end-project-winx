@@ -31,6 +31,10 @@
             },
             addVancacy(){
                 console.log("Adicionar vaga")
+            },
+            logout(){
+                localStorage.removeItem('token');
+                this.$router.push('/');
             }
         },
         mounted(){
@@ -45,19 +49,28 @@
             <img src="../assets/imgs/profile/profile0.jpg" alt="Profile Picture" class="profile-picture">
             <div class="profile-info">
                 <p class="heading-secondary">Olá! {{ name }}</p>
-                <p>
-                    {{ email }}
-                    <RouterLink 
-                        :to="{ 
-                            name: 'profile-edit', 
-                            params: { id: $route.params.id },
-                            query: { mode: 'editProfessor', user: JSON.stringify({ Login: 'teste@teste.com' }) }
-                        }" 
-                        class="edit-link"
-                    >
-                        <font-awesome-icon icon="pen-to-square" style="color: var(--color-variant-background);" />
-                    </RouterLink>
-                </p>
+                <div class="container">
+                    <p>
+                        {{ email }}
+                    </p>
+                    <div class="profile-options">
+                        <RouterLink 
+                            :to="{ 
+                                name: 'profile-edit', 
+                                params: { id: $route.params.id },
+                                query: { mode: 'editProfessor', user: JSON.stringify({ Login: 'teste@teste.com' }) }
+                            }" 
+                            class="edit-link"
+                        >
+                            <font-awesome-icon icon="pen-to-square" style="color: var(--color-variant-background);" /> 
+                            Editar
+                        </RouterLink>
+                        <div class="logout" @click="logout">
+                            <font-awesome-icon icon="right-from-bracket" style="color: var(--color-variant-background);" />
+                            Sair
+                        </div>
+                    </div> 
+                </div>
             </div>
         </div>
         <div class="profile-container">
@@ -214,6 +227,39 @@
         display: flex;
         justify-content: flex-end;
         margin: 10px 0;
+    }
+
+    .profile-options{
+        color: var(--color-variant-background);
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+    }
+
+    a.edit-link {
+        color: var(--color-variant-background);
+        text-decoration: none;
+    }
+
+    a.edit-link:hover {
+        color: var(--color-variant-second-background);
+    }
+
+    a.edit-link:visited {
+        color: var(--color-variant-background);
+    }
+
+    .logout {
+        cursor: pointer;
+    }
+
+    .logout:hover {
+        color: var(--color-variant-second-background);
+    }
+
+    .container{
+        display: flex;
+        gap: 10px;
     }
 
 </style>
