@@ -55,7 +55,7 @@
       },
       templateMode: {
         type: String,
-        default: 'professorMode'
+        default: 'viewMode'
       },
       ownedVacancy: {
         type: Boolean,

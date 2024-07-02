@@ -3,9 +3,17 @@
     import VacancyItem from '@/components/VacancyItemComponent.vue';
     import VacancyCategory from '../components/VancancyCategoriesComponent.vue';
     import { getVacancies } from '@/services/vacancies';
+    import { getIdFromToken, getRoleFromToken, getExpirationDateFromToken } from '@/utils/jwtDecoder';
+    import { getStudentVacancies } from '@/services/students';
     import { onMounted, ref } from 'vue';
 
     const vacancies = ref([]);
+    const vacanciesOwned = ref([]);
+    const mode = ref('viewMode');
+
+    const ownedVacancy = (vacancy) => {
+        return vacanciesOwned.value.some(v => v.vacancyID === vacancy.vacancyID);
+    };
 
     function onFilterChanged(filters) {
         console.log(filters);
@@ -22,6 +30,34 @@
         } catch (error) {
             console.error(error);
         }
+
+        const token = localStorage.getItem('token');
+
+        if (token) {
+          const expirationDate = getExpirationDateFromToken(token);
+          if (expirationDate > new Date()) {
+            const role = getRoleFromToken(token);
+            const tokenId = getIdFromToken(token);
+
+            if (role === 'Student') {
+              mode.value = 'studentMode';
+              try {
+                const response = await getStudentVacancies(tokenId, token);
+                vacanciesOwned.value = response;
+              } catch (error) {
+                console.error(error);
+              }
+            } else if (role === 'Professor') {
+              mode.value = 'professorMode';
+              vacanciesOwned.value = vacancies.value.filter(vacancy => vacancy.professorID === tokenId);
+            } else {
+              console.error('Invalid role');
+            }
+
+          }else{
+            localStorage.removeItem('token');
+          }
+        }
     }); 
 
 
@@ -37,7 +73,12 @@
           </div>
           <div class="vacancy-list-container">
             <div class="vacancy-list">
-              <VacancyItem v-for="vacancy in vacancies" :key="vacancy.vacancyID" :vacancy="vacancy" />
+              <VacancyItem v-for="vacancy in vacancies" 
+                :key="vacancy.vacancyID" 
+                :vacancy="vacancy" 
+                :template-mode="mode"
+                :owned-vacancy="ownedVacancy(vacancy)"
+              />
             </div>
           </div>
         </div>
