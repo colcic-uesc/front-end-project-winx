@@ -88,10 +88,9 @@
                     <div class="profile-options">
                         <RouterLink 
                             :to="{ 
-                                name: 'profile-edit', 
-                                params: { id: $route.params.id },
-                                query: { mode: 'editProfessor', user: JSON.stringify({ Login: 'teste@teste.com' }) }
-                            }" 
+                                name: professorMode ? 'professor-profile-edit' : 'student-profile-edit',
+                                params: { id: $route.params.id } 
+                            }"
                             class="edit-link"
                         >
                             <font-awesome-icon icon="pen-to-square" style="color: var(--color-variant-background);" /> 

@@ -2,7 +2,9 @@
   <div class="signup-container">
     <template v-if="mode == 0">
       <div class="signup-content">
-        <h1>Crie sua conta</h1>
+        <h1>
+          {{ user ? 'Novas credenciais' : 'Crie sua conta' }}
+        </h1>
         <form @submit.prevent="handleSubmitUser">
           <div class="input-group">
             <font-awesome-icon icon="envelope" class="icon" />
@@ -20,21 +22,23 @@
               placeholder="Senha"
             />
           </div>
-          <div class="input-group">
+          <div class="input-group" v-if="!user">
             <font-awesome-icon icon="user" class="icon" />
-            <select v-model="user" class="select-input">
+            <select v-model="userType" class="select-input">
               <option disabled value="">Selecione um tipo de usuário</option>
               <option value="Professor">Professor</option>
               <option value="Student">Aluno</option>
             </select>
           </div>
-          <ButtonComponent btnClass="signup-button" btnType="submit">Cadastrar</ButtonComponent>
+          <ButtonComponent btnClass="signup-button" btnType="submit">
+            {{ user ? 'Continuar' : 'Cadastrar'}}
+          </ButtonComponent>
         </form>
       </div>
     </template>
     <template v-if="mode == 1">
       <div class="signup-content">
-        <h1>Crie sua conta</h1>
+        <h1>Dados pessoais</h1>
         <form @submit.prevent="handleSubmitProfessor">
           <div class="input-group">
             <font-awesome-icon icon="user" class="icon" />
@@ -60,13 +64,17 @@
               placeholder="Departamento"
             />
           </div>
-          <ButtonComponent btnClass="signup-button" btnType="submit">Finalizar</ButtonComponent>
+          <ButtonComponent btnClass="signup-button" btnType="submit">
+            Finalizar
+          </ButtonComponent>
         </form>
       </div>
     </template>
     <template v-if="mode == 2">
       <div class="signup-content">
-        <h1>Crie sua conta</h1>
+        <h1>
+          Dados pessoais
+        </h1>
         <form @submit.prevent="handleSubmitStudent">
           <div class="input-group">
             <font-awesome-icon icon="user" class="icon" />
@@ -147,21 +155,9 @@ const props = defineProps({
   }
 });
 
-const professor = ref({
-  name: '',
-  email: '',
-  department: ''
-});
-const student = ref({
-  name: '',
-  email: '',
-  craa: '',
-  course: ''
-});
-
 const email = ref('');
 const password = ref('');
-const user = ref('');
+const userType = ref('');
 const mode = ref(0);
 const name = ref('');
 const contactEmail = ref('');
@@ -169,6 +165,8 @@ const department = ref('');
 const craa = ref('');
 const course = ref('');
 const msg = ref('');
+
+const userId = ref(null);
 
 const validatePassword = (password) => {
   const errors = [];
@@ -187,11 +185,11 @@ const validatePassword = (password) => {
 const handleSubmitUser = () => {
   const passwordErrors = validatePassword(password.value);
   console.log(passwordErrors);
-  if (email.value && passwordErrors.length === 0 && user.value) {
+  if (email.value && passwordErrors.length === 0 && userType.value) {
     console.log('Email:', email.value);
     console.log('Password:', password.value);
-    console.log('User:', user.value);
-    if (user.value == 'Professor') {
+    console.log('User:', userType.value);
+    if (userType.value == 'Professor' || props.professor) {
       mode.value = 1;
     } else {
       mode.value = 2;
@@ -200,7 +198,7 @@ const handleSubmitUser = () => {
   } else {
     if (!email.value) msg.value = 'Por favor, preencha o campo Email.';
     else if (passwordErrors.length > 0) msg.value = passwordErrors;
-    else if (!user.value) msg.value = 'Por favor, selecione um tipo de usuário.';
+    else if (!userType.value) msg.value = 'Por favor, selecione um tipo de usuário.';
   }
 };
 
@@ -342,21 +340,20 @@ const isValidEmail = (email) => {
 
 onMounted(() => {
   if (props.user) {
-    email.value = props.user.Login || ''
+    email.value = props.user.login 
     password.value = ''
     if (props.professor) {
-      professor.value = {
-        name: props.professor.Name,
-        email: props.professor.Email,
-        department: props.professor.Department
-      }
+      console.log('Professor:', props.professor);
+      name.value = props.professor.name,
+      contactEmail.value = props.professor.email,
+      department.value = props.professor.department
+      userType.value = 'Professor'
     } else if (props.student) {
-      student.value = {
-        name: props.student.Name,
-        email: props.student.Email,
-        craa: props.student.CRAA,
-        course: props.student.Course
-      }
+      name.value = props.student.name,
+      contactEmail.value = props.student.email,
+      craa.value = props.student.craa,
+      course.value = props.student.course
+      userType.value = 'Student'
     }
   }
 });

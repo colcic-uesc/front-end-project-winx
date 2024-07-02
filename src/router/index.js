@@ -31,8 +31,7 @@ const router = createRouter({
     {
       path: '/signup',
       name: 'signup',
-      component: () => import('../views/SignUpView.vue'),
-      props: {mode: 'signUp'},
+      component: () => import('../views/UserView.vue'),
     },
     {
       path: '/professor/:id/profile',
@@ -47,15 +46,16 @@ const router = createRouter({
       component: () => import('../views/ProfileView.vue'),
     },
     {
-      // todo: edit profile route
-      path: '/profile/:id/edit',
-      name: 'profile-edit',
-      component: () => import('../views/SignUpView.vue'),
-      props: route => ({
-        id: route.params.id,
-        mode: route.query.mode,
-        user: JSON.parse(route.query.user || '{}')
-      })
+      path: '/professor/:id/profile/edit',
+      name: 'professor-profile-edit',
+      component: () => import('../views/UserView.vue'),
+      props: {signUpMode: false}
+    },
+    {
+      path: '/student/:id/profile/edit',
+      name: 'student-profile-edit',
+      component: () => import('../views/UserView.vue'),
+      props: {signUpMode: false}
     },
     {
       path: '/vacancy/:id/edit',
