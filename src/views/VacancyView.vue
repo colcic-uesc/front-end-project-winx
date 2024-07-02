@@ -2,7 +2,7 @@
     import VacancyComponent from '../components/VacancyFormComponent.vue';
     import { useRouter, useRoute } from 'vue-router';
     import { ref, onMounted } from 'vue';
-    import { getVacancy } from '../services/endpoints';
+    import { getVacancy } from '../services/vacancies';
 
     const router = useRouter();
     const route = useRoute();

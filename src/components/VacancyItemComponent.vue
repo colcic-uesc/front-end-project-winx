@@ -39,7 +39,8 @@
   </template>
   
   <script>
-  import { getProfessor, getVacancyType } from '../services/endpoints';
+  import { getProfessor} from '../services/professors';
+  import { getVacancyType } from '../services/vacancies';
   export default {
     data() {
       return {

@@ -2,7 +2,7 @@
 <script setup>
     import CheckBox from '@/components/CheckBoxComponent.vue';
     import { onMounted, ref } from 'vue';
-    import { getVacancyTypes } from '@/services/endpoints';
+    import { getVacancyTypes } from '../services/vacancies';
 
     const checkedCategories = ref([]);
     const categories = ref([]);

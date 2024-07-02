@@ -1,9 +1,7 @@
 <script>
-    import { getProfessor } from '../services/endpoints.js';
+    import { getProfessor, getProfessorVacancies } from '../services/professors';
     import VacancyItem from '@/components/VacancyItemComponent.vue';
-    import { getStudent } from '../services/endpoints.js';
-    import { getProfessorVacancies } from '../services/endpoints.js';
-    import { getStudentVacancies } from '../services/endpoints.js';
+    import { getStudent, getStudentVacancies } from '../services/students';
 
 
     export default {

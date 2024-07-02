@@ -130,11 +130,9 @@ import { onMounted, ref } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import InputComponent from '../components/InputComponent.vue';
 import ButtonComponent from '../components/ButtonComponent.vue';
-import { postStudent } from '../services/endpoints';
-import { postStudentUser } from '../services/endpoints';
-import { postProfessor } from '../services/endpoints';
-import { postProfessorUser } from '../services/endpoints'
-import { authUser } from '../services/endpoints';
+import { postStudent } from '../services/students';
+import { postStudentUser, postProfessorUser, authUser } from '../services/users';
+import { postProfessor } from '../services/professors';
 import { useRoute, useRouter } from 'vue-router';
 
 const router = useRouter();
