@@ -72,6 +72,11 @@
           </ButtonComponent>
         </div>
       </form>
+      <div v-if="formErrors.length > 0" class="validation-message-container">
+        <ul>
+          <li v-for="error in formErrors" :key="error">{{ error }}</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -100,37 +105,38 @@ const  dataTermino = ref('');
 const  tipoVaga = ref('');
 const  descricao = ref('');
 const  requisitos = ref('');
+const formErrors = ref([]);
 
 const validateForm = () => {
   const errors = [];
 
-  if (!form.titulo) {
+  if (!form.value.titulo) {
     errors.push("O campo 'Título' é obrigatório.");
-  } else if (form.titulo.length < 10) {
+  } else if (form.value.titulo.length < 10) {
     errors.push("O campo 'Título' deve ter no mínimo 10 caracteres.");
   }
 
-  if (!form.valor) {
-    form.valor = 0;
-  } else if (form.valor <= 0) {
-    errors.push("O campo 'Valor' deve ser maior que zero.");
+  if (!form.value.valor) {
+    form.value.valor = 0;
+  } if (form.value.valor < 0) {
+    errors.push("O campo 'Valor' não pode ser negativo.");
   }
 
-  if (!form.dataInicio) {
+  if (!form.value.dataInicio) {
     errors.push("O campo 'Data de Início' é obrigatório.");
   }
 
-  if (!form.dataTermino) {
+  if (!form.value.dataTermino) {
     errors.push("O campo 'Data de Término' é obrigatório.");
-  } else if (new Date(form.dataTermino) <= new Date(form.dataInicio)) {
+  } else if (new Date(form.value.dataTermino) <= new Date(form.value.dataInicio)) {
     errors.push("A 'Data de Término' deve ser maior que a 'Data de Início'.");
   }
 
-  if (!form.status) {
+  if (!form.value.status) {
     errors.push("Selecione um 'Status' para a vaga.");
   }
 
-  if (!form.tipoVaga) {
+  if (!form.value.tipoVaga) {
     errors.push("Selecione um 'Tipo de Vaga' para a vaga.");
   }
 
@@ -138,15 +144,20 @@ const validateForm = () => {
 };
 
 const submitForm = () => {
-  const formErrors = validateForm();
+  formErrors.value = validateForm();
 
-  if (formErrors.length === 0) {
-    console.log('Formulário válido. Enviando dados...');
+  if (formErrors.value.length === 0) {
+    formErrors.value = [];
+    console.log(form.value);
+    addVacancy();
   } else {
-    console.log('Por favor, corrija os seguintes erros:');
-    console.log(formErrors);
+    console.log(formErrors.value);
   }
 };
+
+const addVacancy = () => {
+  console.log("Vaga adicionada com sucesso!");
+}; 
 
 </script>
 
