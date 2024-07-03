@@ -2,14 +2,17 @@
     import { getProfessor, getProfessorVacancies } from '../services/professors';
     import VacancyItem from '@/components/VacancyItemComponent.vue';
     import { getStudent, getStudentVacancies } from '../services/students';
-
+    import { getRoleFromToken, getIdFromToken, getExpirationDateFromToken } from '@/utils/jwtDecoder';
 
     export default {
         data(){
             return {
                 name: '',
                 email: '',
-                vacancies: {}
+                vacancies: {},
+                token: null,
+                tokenId: null,
+                role: null
             }
         },
         props: {
@@ -38,37 +41,58 @@
             logout(){
                 localStorage.removeItem('token');
                 this.$router.push('/');
+            },
+            checkAuthorized(){
+                this.token = localStorage.getItem('token');
+                if (this.token) {
+                    this.role = getRoleFromToken(this.token);
+                    const expirationDate = getExpirationDateFromToken(this.token);
+                    if (expirationDate < new Date()) {
+                        localStorage.removeItem('token');
+                        router.push('/login');
+                    } else {
+                        if ((this.role === "Professor" && !this.professorMode) || (this.role === "Student" && this.professorMode) || (this.role === "Student" && this.role === "Professor")){
+                            router.push('/login');
+                        }
+                    } 
+                } else {
+                router.push('/login');
+                }
             }
         },
         async mounted(){
             let profileResponse, vacancyResponse;
-            const token = localStorage.getItem('token');
+            this.checkAuthorized();
 
-            try{
-                if (this.professorMode)
-                    profileResponse = await getProfessor(this.$route.params.id);
-                else 
-                    profileResponse = await getStudent(this.$route.params.id, token);
+            if (this.token){            
+                try{
+                    if (this.professorMode)
+                        profileResponse = await getProfessor(this.$route.params.id);
+                    else 
+                        profileResponse = await getStudent(this.$route.params.id, token);
 
-                this.name = profileResponse.name;
-                this.email = profileResponse.email;
-            }catch(e){
-                console.error(e);
-                this.$router.push('/');
-            }
+                    this.name = profileResponse.name;
+                    this.email = profileResponse.email;
+                }catch(e){
+                    console.error(e);
+                    this.$router.push('/');
+                }
 
-            try{
-                if (this.professorMode)
-                    vacancyResponse = await getProfessorVacancies(this.$route.params.id);
-                else
-                    vacancyResponse = await getStudentVacancies(this.$route.params.id, token);
+                try{
+                    if (this.professorMode)
+                        vacancyResponse = await getProfessorVacancies(this.$route.params.id);
+                    else
+                        vacancyResponse = await getStudentVacancies(this.$route.params.id, token);
 
-                this.vacancies = vacancyResponse;
-            }catch(e){
-                console.error(e);
-                this.$router.push('/');
-            }
-            
+                    this.vacancies = vacancyResponse;
+                }catch(e){
+                    console.error(e);
+                    this.$router.push('/');
+                }
+            } 
+            else{
+                this.$router.push('/login');
+            } 
         }
     }
 </script>
@@ -131,7 +155,7 @@
                                 </div>
                             </template>
                             <div class="vacancy-item">
-                                <VacancyItem :vacancy="vacancy"/>
+                                <VacancyItem :vacancy="vacancy" :ownedVacancy = "true" :templateMode = "professorMode? 'professorMode': 'studentMode'"/>
                             </div>
                         </div>
                     </div>

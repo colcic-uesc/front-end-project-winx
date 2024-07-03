@@ -86,7 +86,9 @@
   import InputComponent from '../components/InputComponent.vue';
   import ButtonComponent from '../components/ButtonComponent.vue';
   import { updateVacancy, postVacancy } from '@/services/vacancies';
+  import { useRouter } from 'vue-router';
 
+  const router = useRouter();
   const props = defineProps(['vacancy', 'professorID']);
 
 
@@ -203,6 +205,7 @@
       }
     }
     console.log("Vaga adicionada com sucesso!");
+    router.push({ name: 'professor-profile', params: { id: props.professorID} });
   }; 
 
 </script>

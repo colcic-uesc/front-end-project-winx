@@ -29,7 +29,7 @@
           </p>
         </div>
         <div class="interest-button" :class="{'disabled':templateMode==='professorMode' && !ownedVacancy}">
-          <button @click="expressInterest" :disabled="templateMode==='professorMode' && !ownedVacancy">
+          <button @click="handleClick" :disabled="templateMode==='professorMode' && !ownedVacancy">
             {{ buttonMessage() }}
           </button>
 
@@ -64,8 +64,19 @@
     },
     
     methods: {
-      expressInterest() {
-        alert('Interesse registrado!');
+      handleClick() {
+        if(this.templateMode === 'professorMode' && this.ownedVacancy){
+            this.editVacancy();
+        }
+      },
+      applyVacancy(){
+        console.log('Aplicar para vaga!');
+      },
+      unsubscribeVacancy(){
+        console.log('Tirar interesse na vaga!');
+      },
+      editVacancy(){
+        this.$router.push({name: 'edit-vacancy', params: {id: this.vacancy.vacancyID}});
       },
       buttonMessage() {
         if (this.templateMode==='studentMode'){
