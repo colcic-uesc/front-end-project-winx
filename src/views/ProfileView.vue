@@ -137,7 +137,18 @@
                 </template>
                 <template v-else>
                     <template v-if="professorMode">
-                        <div class="add-container">
+                        <div class="options-container">
+                            <div class = "subscribed-container">
+                                <RouterLink 
+                                    :to="{ 
+                                        name: 'students-subscribed',
+                                        params: { id: $route.params.id }, 
+                                    }"
+                                    class="vacancy-button heading-quaternary"
+                                >
+                                    Ver inscrições de alunos
+                                </RouterLink>
+                            </div>
                             <div class="add-button heading-quaternary" @click="addVancacy()"> 
                                 <span>adicionar</span>
                                 <font-awesome-icon icon="fa-solid fa-square-plus" class="fa-xl" style="color: var(--color-green)" />
@@ -284,10 +295,12 @@
         margin-right: 10px;
     }
 
-    .add-container {
+    .options-container {
         display: flex;
         justify-content: flex-end;
         margin: 10px 0;
+        gap: 10px;
+        align-items: center;
     }
 
     .profile-options{
@@ -331,6 +344,10 @@
         padding: 6px 20px;
         cursor: pointer;
         transition: background-color 0.3s;
+    }
+
+    a.vacancy-button {
+        text-decoration: none;
     }
 
 </style>

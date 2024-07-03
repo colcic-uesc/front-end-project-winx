@@ -1,6 +1,8 @@
 import { jwtDecode } from 'jwt-decode';
 
 export const getClaimFromToken = (token, claim) => {
+    if (!token) return null;
+    
     try {
         // Decodifica o token JWT
         const decodedToken = jwtDecode(token);

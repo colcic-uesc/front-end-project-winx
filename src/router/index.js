@@ -68,6 +68,11 @@ const router = createRouter({
       name: 'create-vacancy',
       component: () => import('../views/VacancyView.vue'),
       props: {editMode: false}
+    },
+    {
+      path: '/professor/:id/vacancies/subscriptions',
+      name: 'students-subscribed',
+      component: () => import('../views/StudentsSubscribedView.vue')
     }
   ]
 })

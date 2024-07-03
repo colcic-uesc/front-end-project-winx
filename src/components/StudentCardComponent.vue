@@ -8,11 +8,6 @@
         CRAA: 9.0,
         status: 'Cursando'
     })
-
-    const infoItens = ref([
-        { icon: 'string', text: 'string' },
-        { icon: 'string', text: 'string' },
-    ])
 </script>
 
 
@@ -61,6 +56,10 @@
 
     p{
         margin: 0;
+        margin-bottom: 10px;
+    }
+
+    .icon{
         margin-bottom: 10px;
     }
 

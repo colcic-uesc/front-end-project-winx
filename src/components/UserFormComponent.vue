@@ -207,9 +207,6 @@ const handleSubmitProfessor = async () => {
       return;
     }
 
-    console.log('Name:', name.value);
-    console.log('ContactEmail:', contactEmail.value);
-    console.log('Department:', department.value);
     msg.value = ['Cadrastrando professor...'];
 
     let professorId;
@@ -293,7 +290,6 @@ const handleSubmitStudent = async () => {
           Status: 'Cursando'})
 
         studentId = studentReponse.studentID;
-        console.log(studentReponse);
       } catch (error) {
         msg.value = ['Erro ao cadastrar aluno. Tente novamente mais tarde.'];
         return;

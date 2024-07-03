@@ -19,6 +19,20 @@ export const getVacancies = async () => {
       throw error;
     }
   };
+
+  export const getSubscribedStudents = async (vacancyId, token) => {
+    try {
+      return await createFetchRequest(`${BASE_URL}/vacancies/${vacancyId}/students`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
+    catch (error) {
+      console.error('Erro ao buscar estudantes inscritos:', error);
+      throw error;
+    }
+  };
   
   export const getVacancyTypes = async () => {
     try {
