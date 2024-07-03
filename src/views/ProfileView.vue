@@ -69,7 +69,7 @@
                     if (this.professorMode)
                         profileResponse = await getProfessor(this.$route.params.id);
                     else 
-                        profileResponse = await getStudent(this.$route.params.id, token);
+                        profileResponse = await getStudent(this.$route.params.id, this.token);
 
                     this.name = profileResponse.name;
                     this.email = profileResponse.email;
@@ -82,7 +82,7 @@
                     if (this.professorMode)
                         vacancyResponse = await getProfessorVacancies(this.$route.params.id);
                     else
-                        vacancyResponse = await getStudentVacancies(this.$route.params.id, token);
+                        vacancyResponse = await getStudentVacancies(this.$route.params.id, this.token);
 
                     this.vacancies = vacancyResponse;
                 }catch(e){
@@ -155,7 +155,12 @@
                                 </div>
                             </template>
                             <div class="vacancy-item">
-                                <VacancyItem :vacancy="vacancy" :ownedVacancy = "true" :templateMode = "professorMode? 'professorMode': 'studentMode'"/>
+                                <VacancyItem 
+                                    :vacancy="vacancy" 
+                                    :ownedVacancy = "true" 
+                                    :templateMode = "professorMode? 'professorMode': 'studentMode'"
+                                    @unsubscribed="vacancies = vacancies.filter(v => v.vacancyID !== vacancy.vacancyID)"   
+                                />
                             </div>
                         </div>
                     </div>

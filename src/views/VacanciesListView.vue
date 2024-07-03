@@ -81,6 +81,8 @@
                 :vacancy="vacancy" 
                 :template-mode="mode"
                 :owned-vacancy="ownedVacancy(vacancy)"
+                @applied="vacanciesOwned.push(vacancy)"
+                @unsubscribed="vacanciesOwned = vacanciesOwned.filter(v => v.vacancyID !== vacancy.vacancyID)" 
               />
             </div>
           </div>

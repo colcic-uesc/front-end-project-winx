@@ -42,3 +42,31 @@ export const getStudentVacancies = async (studentId, token) => {
       throw error;
     }
 };
+
+export const subcribeStudentVacancy = async (studentId, vacancyId, token) => {
+    try {
+      return await createFetchRequest(`${BASE_URL}/vacancies/${vacancyId}/students/${studentId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error('Erro ao inscrever aluno na vaga:', error);
+      throw error;
+    }
+};
+
+export const unsubcribeStudentVacancy = async (studentId, vacancyId, token) => {
+    try {
+      return await createFetchRequest(`${BASE_URL}/vacancies/${vacancyId}/students/${studentId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error('Erro ao desinscrever aluno da vaga:', error);
+      throw error;
+    }
+};

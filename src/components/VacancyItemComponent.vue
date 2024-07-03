@@ -28,11 +28,20 @@
             {{ professor.name }} - {{ vacancyType.name }}
           </p>
         </div>
-        <div class="interest-button" :class="{'disabled':templateMode==='professorMode' && !ownedVacancy}">
-          <button @click="handleClick" :disabled="templateMode==='professorMode' && !ownedVacancy">
+        <div 
+          class="interest-button" 
+          :class="{
+            'disabled': (templateMode==='professorMode' && !ownedVacancy) || 
+                        (templateMode!=='professorMode' && vacancy.status !== 'Aberta')}"
+        >
+          <button 
+            @click="handleClick" 
+            :disabled="
+              (templateMode==='professorMode' && !ownedVacancy) || 
+              (templateMode!=='professorMode' && vacancy.status !== 'Aberta') "
+            >
             {{ buttonMessage() }}
           </button>
-
         </div>
       </div>
     </div>
@@ -41,6 +50,8 @@
   <script>
   import { getProfessor} from '../services/professors';
   import { getVacancyType } from '../services/vacancies';
+  import { subcribeStudentVacancy, unsubcribeStudentVacancy } from '@/services/students';
+  import { getIdFromToken } from '@/utils/jwtDecoder';
   export default {
     data() {
       return {
@@ -67,13 +78,33 @@
       handleClick() {
         if(this.templateMode === 'professorMode' && this.ownedVacancy){
             this.editVacancy();
+        }else if (this.templateMode === 'studentMode'){
+          const token = localStorage.getItem('token');
+          const studentID = getIdFromToken(token);
+          if(this.ownedVacancy){
+            this.unsubscribeVacancy(studentID, token);
+          }else{
+            this.applyVacancy(studentID, token);
+          }
         }
       },
-      applyVacancy(){
-        console.log('Aplicar para vaga!');
+      applyVacancy(studentID, token){
+        try {
+          const response = subcribeStudentVacancy(studentID, this.vacancy.vacancyID, token);
+          console.log(response);
+          this.$emit('applied');
+        } catch (error) {
+          console.error(error);
+        }
       },
-      unsubscribeVacancy(){
-        console.log('Tirar interesse na vaga!');
+      unsubscribeVacancy(studentID, token){
+        try {
+          const response = unsubcribeStudentVacancy(studentID, this.vacancy.vacancyID, token);
+          console.log(response);
+          this.$emit('unsubscribed');
+        } catch (error) {
+          console.error(error);
+        }
       },
       editVacancy(){
         this.$router.push({name: 'edit-vacancy', params: {id: this.vacancy.vacancyID}});
