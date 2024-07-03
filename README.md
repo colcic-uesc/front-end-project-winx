@@ -43,6 +43,12 @@ npm run dev
 npm run build
 ```
 
+## Dependências do Backend
+Para que a aplicação funcione corretamente, é necessário que o backend esteja rodando. O código do backend pode ser encontrado no repositório: Connect Cic API.
+
+## Configuração do Endpoint
+Edite o arquivo src/services/connectCIC_Endpoint.js para apontar para o local onde o backend está rodando.
+
 ## Autores
 
 - Ana Cristina
