@@ -38,3 +38,38 @@ export const getVacancies = async () => {
     }
   };
   
+  export const postVacancy = async (vacancy, professorID, token) => {
+    try {
+      return await createFetchRequest(`${BASE_URL}/professors/${professorID}/vacancies`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json' 
+          },
+          body: JSON.stringify(vacancy),
+        }
+      );
+    } catch (error) {
+      console.error('Erro ao cadastrar vaga:', error);
+      throw error;
+    }
+  };
+
+  export const updateVacancy = async (vacancyId, vacancy, token) => {
+    try {
+      return await createFetchRequest(`${BASE_URL}/vacancies/${vacancyId}`,
+        {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json' 
+          },
+          body: JSON.stringify(vacancy),
+        }
+      );
+    } catch (error) {
+      console.error('Erro ao atualizar vaga:', error);
+      throw error;
+    }
+  };

@@ -3,9 +3,12 @@
     import { useRouter, useRoute } from 'vue-router';
     import { ref, onMounted } from 'vue';
     import { getVacancy } from '../services/vacancies';
+    import { getRoleFromToken, getExpirationDateFromToken, getIdFromToken } from '../utils/jwtDecoder'
 
     const router = useRouter();
     const route = useRoute();
+
+    const professorID = ref(null);
 
     const props = defineProps({
         editMode: {
@@ -25,23 +28,43 @@
         return `${year}-${month}-${day}`;
     };  
 
+    const checkAuthorized = () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          const role = getRoleFromToken(token);
+          const expirationDate = getExpirationDateFromToken(token);
+          professorID.value = getIdFromToken(token);
+          console.log(role,expirationDate,professorID.value,getIdFromToken(token))
+
+          if (expirationDate < new Date()) {
+            localStorage.removeItem('token');
+            router.push('/login');
+          }else if (role !== 'Professor') {
+                router.push('/login');
+          } 
+        } else {
+          router.push('/login');
+        }
+    }
+
     onMounted(async () => {
         console.log(props.editMode)
+        checkAuthorized();
         if (props.editMode) {
             vacancy.value = await getVacancy(route.params.id);
             vacancy.value.startDate = formatDateForInput(vacancy.value.startDate);
             vacancy.value.endDate = formatDateForInput(vacancy.value.endDate);
-            loading.value = false;
         }
+        loading.value = false;
     });
 </script>
 
 <template>
     <template v-if="editMode && !loading">
-        <VacancyComponent  :vacancy="vacancy"/>
+        <VacancyComponent  :vacancy="vacancy" :professorID="professorID"/>
     </template>
-    <template v-else>
-         <VacancyComponent />
+    <template v-else-if="!loading">
+         <VacancyComponent :professorID="professorID"/>
     </template>
 </template>
 

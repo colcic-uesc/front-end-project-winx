@@ -20,8 +20,8 @@
         <div class="form-group">
           <InputComponent
             v-model="form.valor"
-            type="text"
-            placeholder="Valor (R$)"
+            type="number"
+            placeholder="Valor"
           />
         </div>
         <div class="form-group">
@@ -85,14 +85,15 @@
   import { onMounted, ref } from 'vue';
   import InputComponent from '../components/InputComponent.vue';
   import ButtonComponent from '../components/ButtonComponent.vue';
+  import { updateVacancy, postVacancy } from '@/services/vacancies';
 
-  const props = defineProps(['vacancy']);
+  const props = defineProps(['vacancy', 'professorID']);
 
 
   const form = ref({
     titulo: '',
     status: '',
-    valor: 0,
+    valor: '',
     dataInicio: '',
     dataTermino: '',
     tipoVaga: '',
@@ -105,6 +106,8 @@
 
   onMounted(async () => {
     console.log(props.vacancy);
+    console.log(props.professorID);
+
     if (props.vacancy) {
       console.log(props.vacancy);
       form.value.valor = props.vacancy.value;
@@ -168,7 +171,37 @@
     }
   };
 
-  const addVacancy = () => {
+  const addVacancy = async () => {
+    const vacancyPost = {
+      value: form.value.valor,
+      startDate: form.value.dataInicio,
+      endDate: form.value.dataTermino,
+      requirements: form.value.requisitos,
+      description: form.value.descricao,
+      projectTitle: form.value.titulo,
+      status: form.value.status,
+      professorID: props.professorID,
+      vacancyTypeID: form.value.tipoVaga
+    }
+
+    const token = localStorage.getItem('token');
+
+    if (props.vacancy){
+      try {
+        vacancyPost.vacancyID = props.vacancy.vacancyID;
+        const response = await updateVacancy(props.vacancy.vacancyID, vacancyPost, token);
+        console.log(response);
+      } catch (error) {
+        console.log(error); 
+      }
+    } else {
+      try {
+        const response = await postVacancy(vacancyPost, props.professorID, token);
+        console.log(response);
+      } catch (error) {
+        console.log(error); 
+      }
+    }
     console.log("Vaga adicionada com sucesso!");
   }; 
 
