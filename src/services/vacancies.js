@@ -73,3 +73,19 @@ export const getVacancies = async () => {
       throw error;
     }
   };
+
+  export const deleteVacancy = async (vacancyId, token) => {
+    try {
+      return await createFetchRequest(`${BASE_URL}/vacancies/${vacancyId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }catch (error) {
+      console.error('Erro ao deletar vaga:', error);
+      throw error;
+    }
+  };

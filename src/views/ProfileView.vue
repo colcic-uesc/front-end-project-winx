@@ -3,6 +3,7 @@
     import VacancyItem from '@/components/VacancyItemComponent.vue';
     import { getStudent, getStudentVacancies } from '../services/students';
     import { getRoleFromToken, getIdFromToken, getExpirationDateFromToken } from '@/utils/jwtDecoder';
+    import { deleteVacancy } from '@/services/vacancies';
 
     export default {
         data(){
@@ -29,11 +30,12 @@
                 this.$router.push('/vacancy-list')
             },
             cancelVacancy(vacancyID){
-                if (confirm("Deseja mesmo se desinscrever da vaga?")) {
-                    console.log("Continuar");
-                } else {
-                    console.log("Cancelar");
-                }
+                try{
+                    const response = deleteVacancy(vacancyID, this.token);
+                    this.vacancies = this.vacancies.filter(v => v.vacancyID !== vacancyID);
+                }catch(e){
+                    console.error(e);
+                };
             },
             addVancacy(){
                 this.$router.push({ name: 'create-vacancy' });
@@ -144,7 +146,7 @@
                     </template>
                     <div class="vacancy-list">
                         <div class="vacancy-container" v-for="vacancy in vacancies" :key="vacancy.vacancyID">
-                            <template v-if="!professorMode">
+                            <template v-if="professorMode">
                                 <div class="cancel-container">
                                     <font-awesome-icon 
                                         class="fa-3x cancel-button" 
@@ -263,7 +265,7 @@
         cursor: pointer;
     }
 
-    .cancel-icon:hover {
+    .cancel-button:hover {
         transform: scale(1.1);
     }
 
