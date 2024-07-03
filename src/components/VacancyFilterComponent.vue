@@ -2,24 +2,42 @@
 import { onMounted, ref } from 'vue';
 import CheckBox from '@/components/CheckBoxComponent.vue';
 
+    const props = defineProps({
+        optionsList: {
+            type: Object,
+            required: true,
+        },
+        mode: {
+            type: String,
+            required: true,
+        }
+    });
+
     const checkedOptions = ref([]);
     const emit = defineEmits(['filterChanged']);
 
-    const optionsList = [
-        {name: 'showOnlyOpened', value: true, label: 'Mostrar somente vagas abertas'},
-        {name: 'showOnlyPriced', value: false, label: 'Mostrar somente vagas remuneradas'},
-        {name: 'hideYours', value: false, label: 'Esconder vagas já aplicadas'},
-    ]
+    
+    const renderCheckbox = (showAtributte) => {
+        switch (showAtributte) {
+            case 'always':
+                return true;
+            case 'logged':
+                return props.mode === 'studentMode' || props.mode === 'professorMode';
+            default:
+                return false;
+        }
+    }
 
 
-    function updateValue({name, value}) {
+    const updateValue = ({name, value}) => {
         let index = checkedOptions.value.findIndex(option => option.name === name);
         checkedOptions.value[index].value = value;
         emit('filterChanged', checkedOptions.value);
     }
 
     onMounted(() => {
-        optionsList.forEach(option => {
+        console.log(props.optionsList);
+        props.optionsList.forEach(option => {
             checkedOptions.value.push({name: option.name, value: option.value});
         });
     });
@@ -28,7 +46,14 @@ import CheckBox from '@/components/CheckBoxComponent.vue';
 
 <template>
     <div class="filter-container">
-        <CheckBox v-for="option in optionsList"  :name="option.name" :value="option.value" :label="option.label" @custom-checked="updateValue"/>
+        <template v-for="option in optionsList">
+            <CheckBox v-if= "renderCheckbox(option.show)"  
+                :name="option.name" 
+                :value="option.value" 
+                :label="option.label" 
+                @custom-checked="updateValue"
+            />
+        </template>
     </div>
     
 </template>

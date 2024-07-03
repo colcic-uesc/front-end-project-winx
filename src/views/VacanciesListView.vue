@@ -2,34 +2,84 @@
     import VacancyFilter from '@/components/VacancyFilterComponent.vue';
     import VacancyItem from '@/components/VacancyItemComponent.vue';
     import VacancyCategory from '../components/VancancyCategoriesComponent.vue';
-    import { getVacancies } from '@/services/vacancies';
+    import { getVacancies, getVacancyTypes } from '@/services/vacancies';
     import { getIdFromToken, getRoleFromToken, getExpirationDateFromToken } from '@/utils/jwtDecoder';
     import { getStudentVacancies } from '@/services/students';
     import { onMounted, ref } from 'vue';
 
     const vacancies = ref([]);
+    const filteredVacancies = ref([]);
     const vacanciesOwned = ref([]);
     const mode = ref('viewMode');
 
+    const optionsList = [
+        {name: 'showOnlyOpened', value: true, label: 'Mostrar somente vagas abertas', show: 'always'},
+        {name: 'showOnlyPriced', value: false, label: 'Mostrar somente vagas remuneradas', show: 'always'},
+        {name: 'hideYours', value: false, label: 'Esconder minhas vagas', show: 'logged'},
+    ];
+    const filters = ref(optionsList.map(option => ({name: option.name, value: option.value})));
+
+    const vacancyTypes = ref([]);
+    const checkedTypes = ref([]);
+
+
+
+    const filterVacancyType = (categories, vacanciesList) => {
+      return vacanciesList.filter(vacancy => categories.includes(vacancy.vacancyTypeID.toString()));
+    };
+
+    const filterVacancy = (filters, vacanciesList) => {
+      let filtered = vacanciesList;
+      filters.forEach(filter => {
+
+        if (filter.name === "hideYours" && filter.value ) {
+          filtered = filtered.filter(vacancy => !ownedVacancy(vacancy));
+        }
+
+        if (filter.name === "showOnlyPriced" && filter.value) {
+          filtered = filtered.filter(vacancy => vacancy.value > 0);
+        }
+
+        if (filter.name === "showOnlyOpened" && filter.value) {
+          filtered = filtered.filter(vacancy => vacancy.status === 'Aberta');
+        }
+      });
+
+      return filtered;
+    };
+
     const ownedVacancy = (vacancy) => {
-        return vacanciesOwned.value.some(v => v.vacancyID === vacancy.vacancyID);
+      return vacanciesOwned.value.some(v => v.vacancyID === vacancy.vacancyID);
     };
 
     function onFilterChanged(filters) {
-        console.log(filters);
+      filters.value = filters;
+      filterVacancy.value = filterVacancy(filters.value, vacancies.value);
+      filteredVacancies.value = filterVacancyType(checkedTypes.value, filterVacancy.value);
     }
 
     function onCategoriesChanged(categories) {
-        console.log(categories);
+      checkedTypes.value = categories;
+      filteredVacancies.value = filterVacancyType(checkedTypes.value, vacancies.value);
+      filteredVacancies.value = filterVacancy(filters.value, filteredVacancies.value);
     }
 
     onMounted(async () => {
         try {
-            const response = await getVacancies();
-            vacancies.value = response;
+            vacancyTypes.value = await getVacancyTypes();
+            checkedTypes.value = vacancyTypes.value.map(type => type.vacancyTypeID.toString());
         } catch (error) {
             console.error(error);
         }
+        
+        try {
+            vacancies.value = await getVacancies();
+        } catch (error) {
+            console.error(error);
+        }
+
+        filteredVacancies.value = filterVacancyType(checkedTypes.value, vacancies.value);
+        filteredVacancies.value = filterVacancy(filters.value, filteredVacancies.value);
 
         const token = localStorage.getItem('token');
 
@@ -49,10 +99,7 @@
               }
             } else if (role === 'Professor') {
               mode.value = 'professorMode';
-              console.log(tokenId);
               vacanciesOwned.value = vacancies.value.filter(vacancy => vacancy.professorID == tokenId);
-              console.log(vacancies.value);
-              console.log(vacanciesOwned.value);
             } else {
               console.error('Invalid role');
             }
@@ -71,12 +118,20 @@
         <h2>Vagas Disponíveis</h2>
         <div class="vacancies">
           <div class="vacancy-filter-container">
-            <VacancyFilter @filter-changed="onFilterChanged" />
-            <VacancyCategory @categories-changed="onCategoriesChanged" />
+            <VacancyFilter 
+              @filter-changed="onFilterChanged" 
+              :options-list = "optionsList"
+              :mode = "mode"
+            />
+            <VacancyCategory 
+              @categories-changed="onCategoriesChanged"
+              :categories = "vacancyTypes"
+              :checked-categories = "checkedTypes"
+            />
           </div>
           <div class="vacancy-list-container">
             <div class="vacancy-list">
-              <VacancyItem v-for="vacancy in vacancies" 
+              <VacancyItem v-for="vacancy in filteredVacancies" 
                 :key="vacancy.vacancyID" 
                 :vacancy="vacancy" 
                 :template-mode="mode"

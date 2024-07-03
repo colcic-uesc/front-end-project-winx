@@ -2,28 +2,33 @@
 <script setup>
     import CheckBox from '@/components/CheckBoxComponent.vue';
     import { onMounted, ref } from 'vue';
-    import { getVacancyTypes } from '../services/vacancies';
 
-    const checkedCategories = ref([]);
-    const categories = ref([]);
+
+    const props = defineProps({
+        categories: {
+            type: Array,
+            required: true,
+        },
+        checkedCategories: {
+            type: Array,
+            required: true,
+        },
+    });
     const emit = defineEmits(['categoriesChanged']);
 
     onMounted(async () => {
-        try {
-            categories.value = await getVacancyTypes();
-        } catch (error) {
-            console.error(error);
-        }
+            // categories.value = await getVacancyTypes();
+            // checkedCategories.value = categories.value.map(category => category.vacancyTypeID.toString());
     });
 
     function updateValue({name, value}) {
-        let index = checkedCategories.value.findIndex(category => category === name);
+        let index = props.checkedCategories.findIndex(category => category === name);
         if (index === -1) {
-            checkedCategories.value.push(name);
+            props.checkedCategories.push(name);
         } else {
-            checkedCategories.value.splice(index, 1);
+            props.checkedCategories.splice(index, 1);
         }
-        emit('categoriesChanged', checkedCategories.value);
+        emit('categoriesChanged', props.checkedCategories);
     }
 
 </script>
@@ -34,7 +39,11 @@
             Categorias
         </div>
         <div class="category-filter">
-            <CheckBox v-for="category in categories" :name="category.vacancyTypeID.toString()" :value="false" :label="category.name" @custom-checked="updateValue"/>
+            <CheckBox v-for="category in categories" 
+                :name="category.vacancyTypeID.toString()" 
+                :value="checkedCategories.includes(category.vacancyTypeID.toString())"
+                :label="category.name" 
+                @custom-checked="updateValue"/>
             
         </div>
     </div>
