@@ -1,12 +1,11 @@
 <script setup>
     import { ref } from 'vue'
 
-    const student = ref({
-        name: 'Nome de um aluno',
-        email: 'aluno@email.com',
-        course: 'Curso de um aluno',
-        CRAA: 9.0,
-        status: 'Cursando'
+    const props = defineProps({
+        student: {
+            type: Object,
+            required: true
+        }
     })
 </script>
 
@@ -25,7 +24,7 @@
         </div>
         <div class="student-details body-text">
             <p>Curso: {{ student.course }}</p>
-            <p>CRAA: {{ student.CRAA }}</p>
+            <p>CRAA: {{ student.craa }}</p>
             <p>Status: {{ student.status }}</p>
         </div>
     </div>
@@ -45,6 +44,7 @@
 
     .student-details{
         color: var(--color-variant-background);
+        width: 30%;
     }
 
     .info-item{

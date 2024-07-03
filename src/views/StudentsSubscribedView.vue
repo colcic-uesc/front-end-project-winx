@@ -80,10 +80,7 @@
         <div class="students-subscribed" v-if="vacancySelected">
             <template v-if="!warningMessage">
                 <div class="student-list">
-                    <StudentCard/>
-                    <StudentCard/>
-                    <StudentCard/>
-                    <StudentCard/>
+                    <StudentCard v-for="student in students" :student="student" :key="student.studentID"/>
                 </div>
             </template>
             <template v-else>
