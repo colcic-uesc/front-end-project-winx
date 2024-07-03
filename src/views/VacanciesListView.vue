@@ -49,7 +49,10 @@
               }
             } else if (role === 'Professor') {
               mode.value = 'professorMode';
-              vacanciesOwned.value = vacancies.value.filter(vacancy => vacancy.professorID === tokenId);
+              console.log(tokenId);
+              vacanciesOwned.value = vacancies.value.filter(vacancy => vacancy.professorID == tokenId);
+              console.log(vacancies.value);
+              console.log(vacanciesOwned.value);
             } else {
               console.error('Invalid role');
             }
