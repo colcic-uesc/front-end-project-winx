@@ -1,0 +1,41 @@
+/* semantic color variables for this project */
+:root {
+  --color-background: #E8F1FF;
+  --color-background-second: #D4E1F4;
+
+  --color-primary: #4561BD;
+  --color-primary-hover: #314CA5;
+
+  --color-secondary: #F0E63A;
+  --color-secondary-hover: #F0D400;
+
+  --color-variant-background: #314CA5;
+  --color-variant-second-background: #283A73;
+
+  --color-cancel: #F73E3E;
+
+  --color-text: #232323;
+
+  --color-white: #fff;
+  --color-green: #09B24D;
+  --color-green-soft: #DDFEC9;
+
+
+  --font-size-body: 1rem;
+  --font-size-h1: clamp(2.5rem, 6vw, 2.5rem);
+  --font-size-h2: clamp(2rem, 5vw, 2rem);
+  --font-size-h3: clamp(1.25rem, 4vw, 1.25rem);
+}
+
+
+body {
+  font-size: var(--font-size-body);
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  background-color: var(--color-background-second);
+  margin: 0;
+  padding: 0;
+  
+}
